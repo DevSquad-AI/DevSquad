@@ -36,7 +36,7 @@ bunx devsquad install
 npx devsquad install
 ```
 
-That's it! After installation, just type `upup` (or `ultrawork`) and your AI team goes to work.
+That's it! After installation, just type `upup` and your AI team goes to work.
 
 ## Supported Models
 
@@ -65,9 +65,9 @@ Also supports: Claude, GPT, Gemini as fallbacks.
 
 ## Commands
 
-- `ultrawork` / `ulw` - Start a full development session
+- `upup` - Start a full development session
 - `/start-work` - Interview-mode planning
-- `/ulw-loop` - Ralph loop for continuous work
+- `/upup-loop` - Ralph loop for continuous work
 - `/init-deep` - Auto-generate AGENTS.md hierarchy
 - `/refactor` - Intelligent refactoring
 

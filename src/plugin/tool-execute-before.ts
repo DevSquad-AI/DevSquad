@@ -80,8 +80,8 @@ export function createToolExecuteBeforeHandler(args: {
         })
       } else if (command === "cancel-ralph" && sessionID) {
         hooks.ralphLoop.cancelLoop(sessionID)
-      } else if ((command === "ulw-loop" || command === "upup-loop") && sessionID) {
-        const rawArgs = rawName?.replace(/^\/?(ulw-loop|upup-loop)\s*/i, "") || ""
+      } else if (command === "upup-loop" && sessionID) {
+        const rawArgs = rawName?.replace(/^\/?(upup-loop)\s*/i, "") || ""
         const parsedArguments = parseRalphLoopArguments(rawArgs)
 
         hooks.ralphLoop.startLoop(sessionID, parsedArguments.prompt, {
