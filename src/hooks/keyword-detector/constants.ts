@@ -17,7 +17,7 @@ export type KeywordDetector = {
 
 export const KEYWORD_DETECTORS: KeywordDetector[] = [
   {
-    pattern: /\b(upup|ultrawork)\b/i,
+    pattern: /\b(upup)\b/i,
     message: getUpupMessage,
   },
   {

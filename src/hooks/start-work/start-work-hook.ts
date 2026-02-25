@@ -14,7 +14,7 @@ import { updateSessionAgent } from "../../features/claude-code-session-state"
 
 export const HOOK_NAME = "start-work" as const
 
-const KEYWORD_PATTERN = /\b(upup|ultrawork|ulw)\b/gi
+const KEYWORD_PATTERN = /\b(upup)\b/gi
 
 interface StartWorkHookInput {
   sessionID: string
