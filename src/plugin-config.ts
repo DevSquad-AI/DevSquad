@@ -139,20 +139,47 @@ export function loadPluginConfig(
 ): OhMyOpenCodeConfig {
   // User-level config path - prefer .jsonc over .json
   const configDir = getOpenCodeConfigDir({ binary: "opencode" });
-  const userBasePath = path.join(configDir, "oh-my-opencode");
-  const userDetected = detectConfigFile(userBasePath);
-  const userConfigPath =
-    userDetected.format !== "none"
-      ? userDetected.path
-      : userBasePath + ".json";
+  
+  // Try devsquad config first, then fall back to oh-my-opencode for compatibility
+  const userDevsquadPath = path.join(configDir, "devsquad");
+  const userDevsquadDetected = detectConfigFile(userDevsquadPath);
+  const userDevsquadConfigPath =
+    userDevsquadDetected.format !== "none"
+      ? userDevsquadDetected.path
+      : userDevsquadPath + ".jsonc";
+  
+  const userOmoPath = path.join(configDir, "oh-my-opencode");
+  const userOmoDetected = detectConfigFile(userOmoPath);
+  const userOmoConfigPath =
+    userOmoDetected.format !== "none"
+      ? userOmoDetected.path
+      : userOmoPath + ".json";
+  
+  // Use devsquad config if exists, otherwise try omo config
+  const userConfigPath = userDevsquadDetected.format !== "none" 
+    ? userDevsquadConfigPath 
+    : userOmoConfigPath;
 
   // Project-level config path - prefer .jsonc over .json
-  const projectBasePath = path.join(directory, ".opencode", "oh-my-opencode");
-  const projectDetected = detectConfigFile(projectBasePath);
-  const projectConfigPath =
-    projectDetected.format !== "none"
-      ? projectDetected.path
-      : projectBasePath + ".json";
+  // Try devsquad config first, then fall back to oh-my-opencode for compatibility
+  const projectDevsquadPath = path.join(directory, ".opencode", "devsquad");
+  const projectDevsquadDetected = detectConfigFile(projectDevsquadPath);
+  const projectDevsquadConfigPath =
+    projectDevsquadDetected.format !== "none"
+      ? projectDevsquadDetected.path
+      : projectDevsquadPath + ".jsonc";
+  
+  const projectOmoPath = path.join(directory, ".opencode", "oh-my-opencode");
+  const projectOmoDetected = detectConfigFile(projectOmoPath);
+  const projectOmoConfigPath =
+    projectOmoDetected.format !== "none"
+      ? projectOmoDetected.path
+      : projectOmoPath + ".json";
+  
+  // Use devsquad config if exists, otherwise try omo config
+  const projectConfigPath = projectDevsquadDetected.format !== "none"
+    ? projectDevsquadConfigPath
+    : projectOmoConfigPath;
 
   // Load user config first (base)
   let config: OhMyOpenCodeConfig =

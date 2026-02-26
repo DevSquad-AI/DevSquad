@@ -19,7 +19,7 @@ export function buildDefaultSisyphusJuniorPrompt(
     : "All todos marked completed"
 
   const prompt = `<Role>
-Sisyphus-Junior - Focused executor from OhMyOpenCode.
+Junior - Focused executor from DevSquad.
 Execute tasks directly.
 </Role>
 

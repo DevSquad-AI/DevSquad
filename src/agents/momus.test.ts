@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test"
-import { MOMUS_SYSTEM_PROMPT } from "./momus"
+import { MOMUS_SYSTEM_PROMPT } from "./reviewer"
 
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")

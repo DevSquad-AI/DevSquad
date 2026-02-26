@@ -1,5 +1,5 @@
 import { createBuiltinAgents } from "../agents";
-import { createSisyphusJuniorAgentWithOverrides } from "../agents/sisyphus-junior";
+import { createSisyphusJuniorAgentWithOverrides } from "../agents/junior";
 import type { OhMyOpenCodeConfig } from "../config";
 import { log, migrateAgentConfig } from "../shared";
 import { AGENT_NAME_MAP } from "../shared/migration";
@@ -166,8 +166,6 @@ export async function applyAgentConfig(params: {
       ? Object.fromEntries(
           Object.entries(configAgent)
             .filter(([key]) => {
-              if (key === "build") return false;
-              if (key === "plan" && shouldDemotePlan) return false;
               if (key in builtinAgents) return false;
               return true;
             })
@@ -178,10 +176,6 @@ export async function applyAgentConfig(params: {
         )
       : {};
 
-    const migratedBuild = configAgent?.build
-      ? migrateAgentConfig(configAgent.build as Record<string, unknown>)
-      : {};
-
     const planDemoteConfig = shouldDemotePlan
       ? buildPlanDemoteConfig(
           agentConfig["prometheus"] as Record<string, unknown> | undefined,
@@ -189,7 +183,7 @@ export async function applyAgentConfig(params: {
         )
       : undefined;
 
-    params.config.agent = {
+    const finalAgentConfig: Record<string, unknown> = {
       ...agentConfig,
       ...Object.fromEntries(
         Object.entries(builtinAgents).filter(([key]) => key !== "sisyphus"),
@@ -198,9 +192,13 @@ export async function applyAgentConfig(params: {
       ...projectAgents,
       ...pluginAgents,
       ...filteredConfigAgents,
-      build: { ...migratedBuild, mode: "subagent", hidden: true },
-      ...(planDemoteConfig ? { plan: planDemoteConfig } : {}),
     };
+
+    if (planDemoteConfig) {
+      finalAgentConfig.plan = planDemoteConfig;
+    }
+
+    params.config.agent = finalAgentConfig;
   } else {
     params.config.agent = {
       ...builtinAgents,

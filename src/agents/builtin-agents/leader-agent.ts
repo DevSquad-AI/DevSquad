@@ -6,7 +6,7 @@ import { AGENT_MODEL_REQUIREMENTS, isAnyFallbackModelAvailable } from "../../sha
 import { applyEnvironmentContext } from "./environment-context"
 import { applyOverrides } from "./agent-overrides"
 import { applyModelResolution, getFirstFallbackModel } from "./model-resolution"
-import { createSisyphusAgent } from "../sisyphus"
+import { createSisyphusAgent } from "../leader"
 
 export function maybeCreateSisyphusConfig(input: {
   disabledAgents: string[]

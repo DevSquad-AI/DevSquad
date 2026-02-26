@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test"
-import { PROMETHEUS_SYSTEM_PROMPT } from "./prometheus"
+import { PROMETHEUS_SYSTEM_PROMPT } from "./planner"
 
 describe("PROMETHEUS_SYSTEM_PROMPT Momus invocation policy", () => {
   test("should direct providing ONLY the file path string when invoking Momus", () => {

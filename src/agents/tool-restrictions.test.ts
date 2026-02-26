@@ -1,9 +1,9 @@
 import { describe, test, expect } from "bun:test"
-import { createOracleAgent } from "./oracle"
-import { createLibrarianAgent } from "./librarian"
-import { createExploreAgent } from "./explore"
-import { createMomusAgent } from "./momus"
-import { createMetisAgent } from "./metis"
+import { createOracleAgent } from "./architect"
+import { createLibrarianAgent } from "./researcher"
+import { createExploreAgent } from "./scout"
+import { createMomusAgent } from "./reviewer"
+import { createMetisAgent } from "./advisor"
 
 const TEST_MODEL = "anthropic/claude-sonnet-4-5"
 

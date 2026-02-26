@@ -12,14 +12,14 @@ export function injectGitMasterConfig(template: string, config?: GitMasterConfig
 
 	sections.push("### 5.5 Commit Footer & Co-Author")
 	sections.push("")
-	sections.push("Add Sisyphus attribution to EVERY commit:")
+	sections.push("Add DevSquad attribution to EVERY commit:")
 	sections.push("")
 
 	if (commitFooter) {
 		const footerText =
 			typeof commitFooter === "string"
 				? commitFooter
-				: "Ultraworked with [Sisyphus](https://github.com/code-yeongyu/oh-my-opencode)"
+				: "Dev worked with [DevSquad](https://github.com/devsquad-ai/devsquad)"
 		sections.push("1. **Footer in commit body:**")
 		sections.push("```")
 		sections.push(footerText)
@@ -30,7 +30,7 @@ export function injectGitMasterConfig(template: string, config?: GitMasterConfig
 	if (includeCoAuthoredBy) {
 		sections.push(`${commitFooter ? "2" : "1"}. **Co-authored-by trailer:**`)
 		sections.push("```")
-		sections.push("Co-authored-by: Sisyphus <clio-agent@sisyphuslabs.ai>")
+		sections.push("Co-authored-by: DevSquad Bot <devsquad@devsquad.ai>")
 		sections.push("```")
 		sections.push("")
 	}
@@ -39,18 +39,18 @@ export function injectGitMasterConfig(template: string, config?: GitMasterConfig
 		const footerText =
 			typeof commitFooter === "string"
 				? commitFooter
-				: "Ultraworked with [Sisyphus](https://github.com/code-yeongyu/oh-my-opencode)"
+				: "Dev worked with [DevSquad](https://github.com/devsquad-ai/devsquad)"
 		sections.push("**Example (both enabled):**")
 		sections.push("```bash")
 		sections.push(
-			`git commit -m "{Commit Message}" -m "${footerText}" -m "Co-authored-by: Sisyphus <clio-agent@sisyphuslabs.ai>"`
+			`git commit -m "{Commit Message}" -m "${footerText}" -m "Co-authored-by: DevSquad Bot <devsquad@devsquad.ai>"`
 		)
 		sections.push("```")
 	} else if (commitFooter) {
 		const footerText =
 			typeof commitFooter === "string"
 				? commitFooter
-				: "Ultraworked with [Sisyphus](https://github.com/code-yeongyu/oh-my-opencode)"
+				: "Dev worked with [DevSquad](https://github.com/devsquad-ai/devsquad)"
 		sections.push("**Example:**")
 		sections.push("```bash")
 		sections.push(`git commit -m "{Commit Message}" -m "${footerText}"`)
@@ -59,7 +59,7 @@ export function injectGitMasterConfig(template: string, config?: GitMasterConfig
 		sections.push("**Example:**")
 		sections.push("```bash")
 		sections.push(
-			"git commit -m \"{Commit Message}\" -m \"Co-authored-by: Sisyphus <clio-agent@sisyphuslabs.ai>\""
+			"git commit -m \"{Commit Message}\" -m \"Co-authored-by: DevSquad Bot <devsquad@devsquad.ai>\""
 		)
 		sections.push("```")
 	}

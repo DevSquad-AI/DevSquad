@@ -1,20 +1,20 @@
 /**
- * Agent config keys to display names mapping.
- * Config keys are lowercase (e.g., "sisyphus", "atlas").
- * Display names include suffixes for UI/logs (e.g., "Sisyphus (Ultraworker)").
+ * Agent config keys to display names mapping for DevSquad.
+ * Config keys are lowercase (e.g., "leader", "worker").
+ * Display names include suffixes for UI/logs (e.g., "Leader").
  */
 export const AGENT_DISPLAY_NAMES: Record<string, string> = {
-  sisyphus: "Sisyphus (Ultraworker)",
-  hephaestus: "Hephaestus (Deep Agent)",
-  prometheus: "Prometheus (Plan Builder)",
-  atlas: "Atlas (Plan Executor)",
-  "sisyphus-junior": "Sisyphus-Junior",
-  metis: "Metis (Plan Consultant)",
-  momus: "Momus (Plan Critic)",
-  oracle: "oracle",
-  librarian: "librarian",
-  explore: "explore",
-  "multimodal-looker": "multimodal-looker",
+  sisyphus: "Leader",
+  hephaestus: "Worker",
+  prometheus: "Planner",
+  atlas: "Atlas",
+  "sisyphus-junior": "Junior",
+  metis: "Advisor",
+  momus: "Reviewer",
+  oracle: "Architect",
+  librarian: "Researcher",
+  explore: "Scout",
+  "multimodal-looker": "Multimodal",
 }
 
 /**
