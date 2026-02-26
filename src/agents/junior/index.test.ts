@@ -1,19 +1,19 @@
 import { describe, expect, test } from "bun:test"
 import {
-  createSisyphusJuniorAgentWithOverrides,
-  SISYPHUS_JUNIOR_DEFAULTS,
-  getSisyphusJuniorPromptSource,
-  buildSisyphusJuniorPrompt,
+  createJuniorAgentWithOverrides,
+  JUNIOR_DEFAULTS,
+  getJuniorPromptSource,
+  buildJuniorPrompt,
 } from "./index"
 
-describe("createSisyphusJuniorAgentWithOverrides", () => {
+describe("createJuniorAgentWithOverrides", () => {
   describe("honored fields", () => {
     test("applies model override", () => {
       // given
       const override = { model: "openai/gpt-5.2" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.model).toBe("openai/gpt-5.2")
@@ -24,7 +24,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { temperature: 0.5 }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.temperature).toBe(0.5)
@@ -35,7 +35,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { top_p: 0.9 }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.top_p).toBe(0.9)
@@ -46,7 +46,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { description: "Custom description" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.description).toBe("Custom description")
@@ -57,7 +57,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { color: "#FF0000" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.color).toBe("#FF0000")
@@ -68,7 +68,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { prompt_append: "Extra instructions here" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.prompt).toContain("Sisyphus-Junior")
@@ -82,10 +82,10 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = {}
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
-      expect(result.model).toBe(SISYPHUS_JUNIOR_DEFAULTS.model)
+      expect(result.model).toBe(JUNIOR_DEFAULTS.model)
     })
 
     test("uses default temperature when no override", () => {
@@ -93,10 +93,10 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = {}
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
-      expect(result.temperature).toBe(SISYPHUS_JUNIOR_DEFAULTS.temperature)
+      expect(result.temperature).toBe(JUNIOR_DEFAULTS.temperature)
     })
   })
 
@@ -110,11 +110,11 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then - defaults should be used, not the overrides
-      expect(result.model).toBe(SISYPHUS_JUNIOR_DEFAULTS.model)
-      expect(result.temperature).toBe(SISYPHUS_JUNIOR_DEFAULTS.temperature)
+      expect(result.model).toBe(JUNIOR_DEFAULTS.model)
+      expect(result.temperature).toBe(JUNIOR_DEFAULTS.temperature)
     })
   })
 
@@ -124,7 +124,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { mode: "primary" as const }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.mode).toBe("subagent")
@@ -135,7 +135,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { prompt: "Completely new prompt that replaces everything" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.prompt).toContain("Sisyphus-Junior")
@@ -155,7 +155,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       const tools = result.tools as Record<string, boolean> | undefined
@@ -184,7 +184,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       } as { permission: Record<string, string> }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override as Parameters<typeof createSisyphusJuniorAgentWithOverrides>[0])
+      const result = createJuniorAgentWithOverrides(override as Parameters<typeof createJuniorAgentWithOverrides>[0])
 
       // then - task blocked, but call_omo_agent allowed for explore/librarian spawning
       const tools = result.tools as Record<string, boolean> | undefined
@@ -206,7 +206,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { model: "anthropic/claude-sonnet-4-6" }
 
       //#when
-      const result = createSisyphusJuniorAgentWithOverrides(override, undefined, true)
+      const result = createJuniorAgentWithOverrides(override, undefined, true)
 
       //#then
       expect(result.prompt).toContain("task_create")
@@ -219,7 +219,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { model: "openai/gpt-5.2" }
 
       //#when
-      const result = createSisyphusJuniorAgentWithOverrides(override, undefined, true)
+      const result = createJuniorAgentWithOverrides(override, undefined, true)
 
       //#then
       expect(result.prompt).toContain("Task Discipline")
@@ -232,7 +232,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = {}
 
       //#when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       //#then
       expect(result.prompt).toContain("todowrite")
@@ -244,7 +244,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { model: "anthropic/claude-sonnet-4-6" }
 
       //#when
-      const result = createSisyphusJuniorAgentWithOverrides(override, undefined, true)
+      const result = createJuniorAgentWithOverrides(override, undefined, true)
 
       //#then
       expect(result.prompt).toContain("task_create")
@@ -256,7 +256,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { model: "openai/gpt-5.2" }
 
       //#when
-      const result = createSisyphusJuniorAgentWithOverrides(override, undefined, true)
+      const result = createJuniorAgentWithOverrides(override, undefined, true)
 
       //#then
       expect(result.prompt).toContain("task_create")
@@ -268,7 +268,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { model: "anthropic/claude-sonnet-4-6" }
 
       //#when
-      const result = createSisyphusJuniorAgentWithOverrides(override, undefined, false)
+      const result = createJuniorAgentWithOverrides(override, undefined, false)
 
       //#then
       expect(result.prompt).toContain("todowrite")
@@ -282,7 +282,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = {}
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.prompt).toContain("Sisyphus-Junior")
@@ -294,7 +294,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { model: "anthropic/claude-sonnet-4-6" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.prompt).toContain("<Role>")
@@ -306,7 +306,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { model: "openai/gpt-5.2" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       expect(result.prompt).toContain("Scope Discipline")
@@ -319,7 +319,7 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
       const override = { prompt_append: "CUSTOM_MARKER_FOR_TEST" }
 
       // when
-      const result = createSisyphusJuniorAgentWithOverrides(override)
+      const result = createJuniorAgentWithOverrides(override)
 
       // then
       const baseEndIndex = result.prompt!.indexOf("</Style>")
@@ -330,13 +330,13 @@ describe("createSisyphusJuniorAgentWithOverrides", () => {
   })
 })
 
-describe("getSisyphusJuniorPromptSource", () => {
+describe("getJuniorPromptSource", () => {
   test("returns 'gpt' for OpenAI models", () => {
     // given
     const model = "openai/gpt-5.2"
 
     // when
-    const source = getSisyphusJuniorPromptSource(model)
+    const source = getJuniorPromptSource(model)
 
     // then
     expect(source).toBe("gpt")
@@ -347,7 +347,7 @@ describe("getSisyphusJuniorPromptSource", () => {
     const model = "github-copilot/gpt-4o"
 
     // when
-    const source = getSisyphusJuniorPromptSource(model)
+    const source = getJuniorPromptSource(model)
 
     // then
     expect(source).toBe("gpt")
@@ -358,7 +358,7 @@ describe("getSisyphusJuniorPromptSource", () => {
     const model = "anthropic/claude-sonnet-4-6"
 
     // when
-    const source = getSisyphusJuniorPromptSource(model)
+    const source = getJuniorPromptSource(model)
 
     // then
     expect(source).toBe("default")
@@ -369,20 +369,20 @@ describe("getSisyphusJuniorPromptSource", () => {
     const model = undefined
 
     // when
-    const source = getSisyphusJuniorPromptSource(model)
+    const source = getJuniorPromptSource(model)
 
     // then
     expect(source).toBe("default")
   })
 })
 
-describe("buildSisyphusJuniorPrompt", () => {
+describe("buildJuniorPrompt", () => {
   test("GPT model prompt contains Hephaestus-style sections", () => {
     // given
     const model = "openai/gpt-5.2"
 
     // when
-    const prompt = buildSisyphusJuniorPrompt(model, false)
+    const prompt = buildJuniorPrompt(model, false)
 
     // then
     expect(prompt).toContain("## Identity")
@@ -396,7 +396,7 @@ describe("buildSisyphusJuniorPrompt", () => {
     const model = "anthropic/claude-sonnet-4-6"
 
     // when
-    const prompt = buildSisyphusJuniorPrompt(model, false)
+    const prompt = buildJuniorPrompt(model, false)
 
     // then
     expect(prompt).toContain("<Role>")
@@ -409,7 +409,7 @@ describe("buildSisyphusJuniorPrompt", () => {
     const model = "openai/gpt-5.2"
 
     // when
-    const prompt = buildSisyphusJuniorPrompt(model, true)
+    const prompt = buildJuniorPrompt(model, true)
 
     // then
     expect(prompt).toContain("Task Discipline")
@@ -421,7 +421,7 @@ describe("buildSisyphusJuniorPrompt", () => {
     const model = "anthropic/claude-sonnet-4-6"
 
     // when
-    const prompt = buildSisyphusJuniorPrompt(model, false)
+    const prompt = buildJuniorPrompt(model, false)
 
     // then
     expect(prompt).toContain("<Todo_Discipline>")
