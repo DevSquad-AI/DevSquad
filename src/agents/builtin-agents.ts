@@ -3,15 +3,15 @@ import type { BuiltinAgentName, AgentOverrides, AgentFactory, AgentPromptMetadat
 import type { CategoriesConfig, GitMasterConfig } from "../config/schema"
 import type { LoadedSkill } from "../features/opencode-skill-loader/types"
 import type { BrowserAutomationProvider } from "../config/schema"
-import { createSisyphusAgent } from "./leader"
-import { createOracleAgent, ORACLE_PROMPT_METADATA } from "./architect"
-import { createLibrarianAgent, LIBRARIAN_PROMPT_METADATA } from "./researcher"
-import { createExploreAgent, EXPLORE_PROMPT_METADATA } from "./scout"
-import { createMultimodalLookerAgent, MULTIMODAL_LOOKER_PROMPT_METADATA } from "./multimodal"
-import { createMetisAgent, metisPromptMetadata } from "./advisor"
+import { createLeaderAgent, LEADER_PROMPT_METADATA } from "./leader"
+import { createArchitectAgent, ARCHITECT_PROMPT_METADATA } from "./architect"
+import { createResearcherAgent, RESEARCHER_PROMPT_METADATA } from "./researcher"
+import { createScoutAgent, SCOUT_PROMPT_METADATA } from "./scout"
+import { createMultimodalAgent, MULTIMODAL_PROMPT_METADATA } from "./multimodal"
+import { createAdvisorAgent, advisorPromptMetadata } from "./advisor"
 import { createAtlasAgent, atlasPromptMetadata } from "./atlas"
-import { createMomusAgent, momusPromptMetadata } from "./reviewer"
-import { createHephaestusAgent } from "./worker"
+import { createReviewerAgent, reviewerPromptMetadata } from "./reviewer"
+import { createWorkerAgent } from "./worker"
 import type { AvailableCategory } from "./dynamic-agent-prompt-builder"
 import {
   fetchAvailableModels,
@@ -22,38 +22,38 @@ import { CATEGORY_DESCRIPTIONS } from "../tools/delegate-task/constants"
 import { mergeCategories } from "../shared/merge-categories"
 import { buildAvailableSkills } from "./builtin-agents/available-skills"
 import { collectPendingBuiltinAgents } from "./builtin-agents/general-agents"
-import { maybeCreateSisyphusConfig } from "./builtin-agents/leader-agent"
-import { maybeCreateHephaestusConfig } from "./builtin-agents/worker-agent"
+import { maybeCreateLeaderConfig } from "./builtin-agents/leader-agent"
+import { maybeCreateWorkerConfig } from "./builtin-agents/worker-agent"
 import { maybeCreateAtlasConfig } from "./builtin-agents/atlas-agent"
 import { buildCustomAgentMetadata, parseRegisteredAgentSummaries } from "./custom-agent-summaries"
 
 type AgentSource = AgentFactory | AgentConfig
 
 const agentSources: Record<BuiltinAgentName, AgentSource> = {
-  sisyphus: createSisyphusAgent,
-  hephaestus: createHephaestusAgent,
-  oracle: createOracleAgent,
-  librarian: createLibrarianAgent,
-  explore: createExploreAgent,
-  "multimodal-looker": createMultimodalLookerAgent,
-  metis: createMetisAgent,
-  momus: createMomusAgent,
+  sisyphus: createLeaderAgent,
+  hephaestus: createWorkerAgent,
+  oracle: createArchitectAgent,
+  librarian: createResearcherAgent,
+  explore: createScoutAgent,
+  "multimodal-looker": createMultimodalAgent,
+  metis: createAdvisorAgent,
+  momus: createReviewerAgent,
   // Note: Atlas is handled specially in createBuiltinAgents()
   // because it needs OrchestratorContext, not just a model string
   atlas: createAtlasAgent as AgentFactory,
 }
 
 /**
- * Metadata for each agent, used to build Sisyphus's dynamic prompt sections
+ * Metadata for each agent, used to build Leader's dynamic prompt sections
  * (Delegation Table, Tool Selection, Key Triggers, etc.)
  */
 const agentMetadata: Partial<Record<BuiltinAgentName, AgentPromptMetadata>> = {
-  oracle: ORACLE_PROMPT_METADATA,
-  librarian: LIBRARIAN_PROMPT_METADATA,
-  explore: EXPLORE_PROMPT_METADATA,
-  "multimodal-looker": MULTIMODAL_LOOKER_PROMPT_METADATA,
-  metis: metisPromptMetadata,
-  momus: momusPromptMetadata,
+  oracle: ARCHITECT_PROMPT_METADATA,
+  librarian: RESEARCHER_PROMPT_METADATA,
+  explore: SCOUT_PROMPT_METADATA,
+  "multimodal-looker": MULTIMODAL_PROMPT_METADATA,
+  metis: advisorPromptMetadata,
+  momus: reviewerPromptMetadata,
   atlas: atlasPromptMetadata,
 }
 
@@ -134,7 +134,7 @@ export async function createBuiltinAgents(
     })
   }
 
-  const sisyphusConfig = maybeCreateSisyphusConfig({
+  const leaderConfig = maybeCreateLeaderConfig({
     disabledAgents,
     agentOverrides,
     uiSelectedModel,
@@ -150,11 +150,11 @@ export async function createBuiltinAgents(
     useTaskSystem,
     disableOmoEnv,
   })
-  if (sisyphusConfig) {
-    result["sisyphus"] = sisyphusConfig
+  if (leaderConfig) {
+    result["sisyphus"] = leaderConfig
   }
 
-  const hephaestusConfig = maybeCreateHephaestusConfig({
+  const workerConfig = maybeCreateWorkerConfig({
     disabledAgents,
     agentOverrides,
     availableModels,
@@ -168,11 +168,11 @@ export async function createBuiltinAgents(
     useTaskSystem,
     disableOmoEnv,
   })
-  if (hephaestusConfig) {
-    result["hephaestus"] = hephaestusConfig
+  if (workerConfig) {
+    result["hephaestus"] = workerConfig
   }
 
-  // Add pending agents after sisyphus and hephaestus to maintain order
+  // Add pending agents after leader and worker to maintain order
   for (const [name, config] of pendingAgentConfigs) {
     result[name] = config
   }

@@ -1,5 +1,5 @@
 /**
- * Gemini-optimized Sisyphus-Junior System Prompt
+ * Gemini-optimized Junior System Prompt
  *
  * Key differences from Claude/GPT variants:
  * - Aggressive tool-call enforcement (Gemini skips tools in favor of reasoning)
@@ -10,7 +10,7 @@
 
 import { resolvePromptAppend } from "../builtin-agents/resolve-file-uri"
 
-export function buildGeminiSisyphusJuniorPrompt(
+export function buildGeminiJuniorPrompt(
   useTaskSystem: boolean,
   promptAppend?: string
 ): string {

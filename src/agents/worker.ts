@@ -499,7 +499,7 @@ This means:
 **Never**: Leave code broken, delete failing tests, shotgun debug`;
 }
 
-export function createHephaestusAgent(
+export function createWorkerAgent(
   model: string,
   availableAgents?: AvailableAgent[],
   availableToolNames?: string[],
@@ -535,4 +535,4 @@ export function createHephaestusAgent(
     reasoningEffort: "medium",
   };
 }
-createHephaestusAgent.mode = MODE;
+createWorkerAgent.mode = MODE;

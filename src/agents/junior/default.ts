@@ -1,5 +1,5 @@
 /**
- * Default Sisyphus-Junior system prompt optimized for Claude series models.
+ * Default Junior system prompt optimized for Claude series models.
  *
  * Key characteristics:
  * - Optimized for Claude's tendency to be "helpful" by forcing explicit constraints
@@ -9,7 +9,7 @@
 
 import { resolvePromptAppend } from "../builtin-agents/resolve-file-uri"
 
-export function buildDefaultSisyphusJuniorPrompt(
+export function buildDefaultJuniorPrompt(
   useTaskSystem: boolean,
   promptAppend?: string
 ): string {

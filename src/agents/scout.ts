@@ -4,11 +4,11 @@ import { createAgentToolRestrictions } from "../shared/permission-compat"
 
 const MODE: AgentMode = "subagent"
 
-export const EXPLORE_PROMPT_METADATA: AgentPromptMetadata = {
+export const SCOUT_PROMPT_METADATA: AgentPromptMetadata = {
   category: "exploration",
   cost: "FREE",
-  promptAlias: "Explore",
-  keyTrigger: "2+ modules involved → fire `explore` background",
+  promptAlias: "Scout",
+  keyTrigger: "2+ modules involved → fire `scout` background",
   triggers: [
     { domain: "Explore", trigger: "Find existing codebase structure, patterns and styles" },
   ],
@@ -24,7 +24,7 @@ export const EXPLORE_PROMPT_METADATA: AgentPromptMetadata = {
   ],
 }
 
-export function createExploreAgent(model: string): AgentConfig {
+export function createScoutAgent(model: string): AgentConfig {
   const restrictions = createAgentToolRestrictions([
     "write",
     "edit",
@@ -119,4 +119,4 @@ Use the right tool for the job:
 Flood with parallel calls. Cross-validate findings across multiple tools.`,
   }
 }
-createExploreAgent.mode = MODE
+createScoutAgent.mode = MODE

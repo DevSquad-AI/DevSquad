@@ -9,7 +9,7 @@ import { getGeminiPrometheusPrompt } from "./gemini"
 import { isGptModel, isGeminiModel } from "../types"
 
 /**
- * Combined Prometheus system prompt (Claude-optimized, default).
+ * Combined Planner system prompt (Claude-optimized, default).
  * Assembled from modular sections for maintainability.
  */
 export const PROMETHEUS_SYSTEM_PROMPT = `${PROMETHEUS_IDENTITY_CONSTRAINTS}
@@ -20,7 +20,7 @@ ${PROMETHEUS_PLAN_TEMPLATE}
 ${PROMETHEUS_BEHAVIORAL_SUMMARY}`
 
 /**
- * Prometheus planner permission configuration.
+ * Planner permission configuration.
  * Allows write/edit for plan files (.md only, enforced by prometheus-md-only hook).
  * Question permission allows agent to ask user questions via OpenCode's QuestionTool.
  */

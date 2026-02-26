@@ -7,7 +7,7 @@ import type { OhMyOpenCodeConfig } from "../config"
 import { getAgentDisplayName } from "../shared/agent-display-names"
 
 import * as agents from "../agents"
-import * as sisyphusJunior from "../agents/junior"
+import * as junior from "../agents/junior"
 import * as commandLoader from "../features/claude-code-command-loader"
 import * as builtinCommands from "../features/builtin-commands"
 import * as skillLoader from "../features/opencode-skill-loader"
@@ -75,7 +75,7 @@ beforeEach(() => {
 
 afterEach(() => {
   (agents.createBuiltinAgents as any)?.mockRestore?.()
-  ;(sisyphusJunior.createSisyphusJuniorAgentWithOverrides as any)?.mockRestore?.()
+  ;(junior.createJuniorAgentWithOverrides as any)?.mockRestore?.()
   ;(commandLoader.loadUserCommands as any)?.mockRestore?.()
   ;(commandLoader.loadProjectCommands as any)?.mockRestore?.()
   ;(commandLoader.loadOpencodeGlobalCommands as any)?.mockRestore?.()
@@ -125,7 +125,7 @@ describe("Sisyphus-Junior model inheritance", () => {
     // #then
     const agentConfig = config.agent as Record<string, { model?: string }>
     expect(agentConfig[getAgentDisplayName("sisyphus-junior")]?.model).toBe(
-      sisyphusJunior.SISYPHUS_JUNIOR_DEFAULTS.model
+      junior.JUNIOR_DEFAULTS.model
     )
   })
 

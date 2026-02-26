@@ -4,11 +4,11 @@ import { createAgentToolRestrictions } from "../shared/permission-compat"
 
 const MODE: AgentMode = "subagent"
 
-export const LIBRARIAN_PROMPT_METADATA: AgentPromptMetadata = {
+export const RESEARCHER_PROMPT_METADATA: AgentPromptMetadata = {
   category: "exploration",
   cost: "CHEAP",
-  promptAlias: "Librarian",
-  keyTrigger: "External library/source mentioned → fire `librarian` background",
+  promptAlias: "Researcher",
+  keyTrigger: "External library/source mentioned → fire `researcher` background",
   triggers: [
     { domain: "Librarian", trigger: "Unfamiliar packages / libraries, struggles at weird behaviour (to find existing implementation of opensource)" },
   ],
@@ -21,7 +21,7 @@ export const LIBRARIAN_PROMPT_METADATA: AgentPromptMetadata = {
   ],
 }
 
-export function createLibrarianAgent(model: string): AgentConfig {
+export function createResearcherAgent(model: string): AgentConfig {
   const restrictions = createAgentToolRestrictions([
     "write",
     "edit",
@@ -317,4 +317,4 @@ grep_app_searchGitHub(query: "useQuery")
 `,
   }
 }
-createLibrarianAgent.mode = MODE
+createResearcherAgent.mode = MODE

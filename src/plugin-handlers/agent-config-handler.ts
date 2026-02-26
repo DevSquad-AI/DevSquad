@@ -1,5 +1,5 @@
 import { createBuiltinAgents } from "../agents";
-import { createSisyphusJuniorAgentWithOverrides } from "../agents/junior";
+import { createJuniorAgentWithOverrides } from "../agents/junior";
 import type { OhMyOpenCodeConfig } from "../config";
 import { log, migrateAgentConfig } from "../shared";
 import { AGENT_NAME_MAP } from "../shared/migration";
@@ -129,7 +129,7 @@ export async function applyAgentConfig(params: {
       sisyphus: builtinAgents.sisyphus,
     };
 
-    agentConfig["sisyphus-junior"] = createSisyphusJuniorAgentWithOverrides(
+    agentConfig["sisyphus-junior"] = createJuniorAgentWithOverrides(
       params.pluginConfig.agents?.["sisyphus-junior"],
       undefined,
       useTaskSystem,

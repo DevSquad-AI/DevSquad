@@ -9,10 +9,10 @@ import {
 } from "./sisyphus-gemini-overlays";
 
 const MODE: AgentMode = "primary";
-export const SISYPHUS_PROMPT_METADATA: AgentPromptMetadata = {
+export const LEADER_PROMPT_METADATA: AgentPromptMetadata = {
   category: "utility",
   cost: "EXPENSIVE",
-  promptAlias: "Sisyphus",
+  promptAlias: "Leader",
   triggers: [],
 };
 import type {
@@ -542,7 +542,7 @@ ${antiPatterns}
 `;
 }
 
-export function createSisyphusAgent(
+export function createLeaderAgent(
   model: string,
   availableAgents?: AvailableAgent[],
   availableToolNames?: string[],
@@ -594,4 +594,4 @@ export function createSisyphusAgent(
 
   return { ...base, thinking: { type: "enabled", budgetTokens: 32000 } };
 }
-createSisyphusAgent.mode = MODE;
+createLeaderAgent.mode = MODE;

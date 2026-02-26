@@ -18,12 +18,12 @@ const MODE: AgentMode = "subagent"
  * - Prepare directives for the planner agent
  */
 
-export const METIS_SYSTEM_PROMPT = `# Metis - Pre-Planning Consultant
+export const ADVISOR_SYSTEM_PROMPT = `# Advisor - Pre-Planning Consultant
 
 ## CONSTRAINTS
 
 - **READ-ONLY**: You analyze, question, advise. You do NOT implement or modify files.
-- **OUTPUT**: Your analysis feeds into Prometheus (planner). Be actionable.
+- **OUTPUT**: Your analysis feeds into Planner (planner). Be actionable.
 
 ---
 
@@ -304,7 +304,7 @@ const metisRestrictions = createAgentToolRestrictions([
   "task",
 ])
 
-export function createMetisAgent(model: string): AgentConfig {
+export function createAdvisorAgent(model: string): AgentConfig {
   return {
     description:
       "Pre-planning consultant that analyzes requests to identify hidden intentions, ambiguities, and AI failure points. (Advisor - DevSquad)",
@@ -312,13 +312,13 @@ export function createMetisAgent(model: string): AgentConfig {
     model,
     temperature: 0.3,
     ...metisRestrictions,
-    prompt: METIS_SYSTEM_PROMPT,
+    prompt: ADVISOR_SYSTEM_PROMPT,
     thinking: { type: "enabled", budgetTokens: 32000 },
   } as AgentConfig
 }
-createMetisAgent.mode = MODE
+createAdvisorAgent.mode = MODE
 
-export const metisPromptMetadata: AgentPromptMetadata = {
+export const advisorPromptMetadata: AgentPromptMetadata = {
   category: "advisor",
   cost: "EXPENSIVE",
   triggers: [

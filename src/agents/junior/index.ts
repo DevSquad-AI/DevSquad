@@ -1,11 +1,11 @@
-export { buildDefaultSisyphusJuniorPrompt } from "./default"
-export { buildGptSisyphusJuniorPrompt } from "./gpt"
-export { buildGeminiSisyphusJuniorPrompt } from "./gemini"
+export { buildDefaultJuniorPrompt } from "./default"
+export { buildGptJuniorPrompt } from "./gpt"
+export { buildGeminiJuniorPrompt } from "./gemini"
 
 export {
-  SISYPHUS_JUNIOR_DEFAULTS,
-  getSisyphusJuniorPromptSource,
-  buildSisyphusJuniorPrompt,
-  createSisyphusJuniorAgentWithOverrides,
+  JUNIOR_DEFAULTS,
+  getJuniorPromptSource,
+  buildJuniorPrompt,
+  createJuniorAgentWithOverrides,
 } from "./agent"
-export type { SisyphusJuniorPromptSource } from "./agent"
+export type { JuniorPromptSource } from "./agent"

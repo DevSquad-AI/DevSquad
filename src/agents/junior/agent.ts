@@ -19,27 +19,27 @@ import {
   type PermissionValue,
 } from "../../shared/permission-compat"
 
-import { buildDefaultSisyphusJuniorPrompt } from "./default"
-import { buildGptSisyphusJuniorPrompt } from "./gpt"
-import { buildGeminiSisyphusJuniorPrompt } from "./gemini"
+import { buildDefaultJuniorPrompt } from "./default"
+import { buildGptJuniorPrompt } from "./gpt"
+import { buildGeminiJuniorPrompt } from "./gemini"
 
 const MODE: AgentMode = "subagent"
 
-// Core tools that Sisyphus-Junior must NEVER have access to
+// Core tools that Junior must NEVER have access to
 // Note: call_omo_agent is ALLOWED so subagents can spawn explore/librarian
 const BLOCKED_TOOLS = ["task"]
 
-export const SISYPHUS_JUNIOR_DEFAULTS = {
+export const JUNIOR_DEFAULTS = {
   model: "anthropic/claude-sonnet-4-6",
   temperature: 0.1,
 } as const
 
-export type SisyphusJuniorPromptSource = "default" | "gpt" | "gemini"
+export type JuniorPromptSource = "default" | "gpt" | "gemini"
 
 /**
- * Determines which Sisyphus-Junior prompt to use based on model.
+ * Determines which Junior prompt to use based on model.
  */
-export function getSisyphusJuniorPromptSource(model?: string): SisyphusJuniorPromptSource {
+export function getJuniorPromptSource(model?: string): JuniorPromptSource {
   if (model && isGptModel(model)) {
     return "gpt"
   }
@@ -50,27 +50,27 @@ export function getSisyphusJuniorPromptSource(model?: string): SisyphusJuniorPro
 }
 
 /**
- * Builds the appropriate Sisyphus-Junior prompt based on model.
+ * Builds the appropriate Junior prompt based on model.
  */
-export function buildSisyphusJuniorPrompt(
+export function buildJuniorPrompt(
   model: string | undefined,
   useTaskSystem: boolean,
   promptAppend?: string
 ): string {
-  const source = getSisyphusJuniorPromptSource(model)
+  const source = getJuniorPromptSource(model)
 
   switch (source) {
     case "gpt":
-      return buildGptSisyphusJuniorPrompt(useTaskSystem, promptAppend)
+      return buildGptJuniorPrompt(useTaskSystem, promptAppend)
     case "gemini":
-      return buildGeminiSisyphusJuniorPrompt(useTaskSystem, promptAppend)
+      return buildGeminiJuniorPrompt(useTaskSystem, promptAppend)
     case "default":
     default:
-      return buildDefaultSisyphusJuniorPrompt(useTaskSystem, promptAppend)
+      return buildDefaultJuniorPrompt(useTaskSystem, promptAppend)
   }
 }
 
-export function createSisyphusJuniorAgentWithOverrides(
+export function createJuniorAgentWithOverrides(
   override: AgentOverrideConfig | undefined,
   systemDefaultModel?: string,
   useTaskSystem = false
@@ -80,11 +80,11 @@ export function createSisyphusJuniorAgentWithOverrides(
   }
 
   const overrideModel = (override as { model?: string } | undefined)?.model
-  const model = overrideModel ?? systemDefaultModel ?? SISYPHUS_JUNIOR_DEFAULTS.model
-  const temperature = override?.temperature ?? SISYPHUS_JUNIOR_DEFAULTS.temperature
+  const model = overrideModel ?? systemDefaultModel ?? JUNIOR_DEFAULTS.model
+  const temperature = override?.temperature ?? JUNIOR_DEFAULTS.temperature
 
   const promptAppend = override?.prompt_append
-  const prompt = buildSisyphusJuniorPrompt(model, useTaskSystem, promptAppend)
+  const prompt = buildJuniorPrompt(model, useTaskSystem, promptAppend)
 
   const baseRestrictions = createAgentToolRestrictions(BLOCKED_TOOLS)
 
@@ -123,4 +123,4 @@ export function createSisyphusJuniorAgentWithOverrides(
   } as AgentConfig
 }
 
-createSisyphusJuniorAgentWithOverrides.mode = MODE
+createJuniorAgentWithOverrides.mode = MODE

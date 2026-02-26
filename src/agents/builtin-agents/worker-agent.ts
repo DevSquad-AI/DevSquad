@@ -3,12 +3,12 @@ import type { AgentOverrides } from "../types"
 import type { CategoryConfig } from "../../config/schema"
 import type { AvailableAgent, AvailableCategory, AvailableSkill } from "../dynamic-agent-prompt-builder"
 import { AGENT_MODEL_REQUIREMENTS, isAnyProviderConnected } from "../../shared"
-import { createHephaestusAgent } from "../worker"
+import { createWorkerAgent } from "../worker"
 import { applyEnvironmentContext } from "./environment-context"
 import { applyCategoryOverride, mergeAgentConfig } from "./agent-overrides"
 import { applyModelResolution, getFirstFallbackModel } from "./model-resolution"
 
-export function maybeCreateHephaestusConfig(input: {
+export function maybeCreateWorkerConfig(input: {
   disabledAgents: string[]
   agentOverrides: AgentOverrides
   availableModels: Set<string>
@@ -39,34 +39,34 @@ export function maybeCreateHephaestusConfig(input: {
 
   if (disabledAgents.includes("hephaestus")) return undefined
 
-  const hephaestusOverride = agentOverrides["hephaestus"]
-  const hephaestusRequirement = AGENT_MODEL_REQUIREMENTS["hephaestus"]
-  const hasHephaestusExplicitConfig = hephaestusOverride !== undefined
+  const workerOverride = agentOverrides["hephaestus"]
+  const workerRequirement = AGENT_MODEL_REQUIREMENTS["hephaestus"]
+  const hasWorkerExplicitConfig = workerOverride !== undefined
 
   const hasRequiredProvider =
-    !hephaestusRequirement?.requiresProvider ||
-    hasHephaestusExplicitConfig ||
+    !workerRequirement?.requiresProvider ||
+    hasWorkerExplicitConfig ||
     isFirstRunNoCache ||
-    isAnyProviderConnected(hephaestusRequirement.requiresProvider, availableModels)
+    isAnyProviderConnected(workerRequirement.requiresProvider, availableModels)
 
   if (!hasRequiredProvider) return undefined
 
-  let hephaestusResolution = applyModelResolution({
-    userModel: hephaestusOverride?.model,
-    requirement: hephaestusRequirement,
+  let workerResolution = applyModelResolution({
+    userModel: workerOverride?.model,
+    requirement: workerRequirement,
     availableModels,
     systemDefaultModel,
   })
 
-  if (isFirstRunNoCache && !hephaestusOverride?.model) {
-    hephaestusResolution = getFirstFallbackModel(hephaestusRequirement)
+  if (isFirstRunNoCache && !workerOverride?.model) {
+    workerResolution = getFirstFallbackModel(workerRequirement)
   }
 
-  if (!hephaestusResolution) return undefined
-  const { model: hephaestusModel, variant: hephaestusResolvedVariant } = hephaestusResolution
+  if (!workerResolution) return undefined
+  const { model: workerModel, variant: workerResolvedVariant } = workerResolution
 
-  let hephaestusConfig = createHephaestusAgent(
-    hephaestusModel,
+  let workerConfig = createWorkerAgent(
+    workerModel,
     availableAgents,
     undefined,
     availableSkills,
@@ -74,17 +74,17 @@ export function maybeCreateHephaestusConfig(input: {
     useTaskSystem
   )
 
-  hephaestusConfig = { ...hephaestusConfig, variant: hephaestusResolvedVariant ?? "medium" }
+  workerConfig = { ...workerConfig, variant: workerResolvedVariant ?? "medium" }
 
-  const hepOverrideCategory = (hephaestusOverride as Record<string, unknown> | undefined)?.category as string | undefined
-  if (hepOverrideCategory) {
-    hephaestusConfig = applyCategoryOverride(hephaestusConfig, hepOverrideCategory, mergedCategories)
+  const workerOverrideCategory = (workerOverride as Record<string, unknown> | undefined)?.category as string | undefined
+  if (workerOverrideCategory) {
+    workerConfig = applyCategoryOverride(workerConfig, workerOverrideCategory, mergedCategories)
   }
 
-  hephaestusConfig = applyEnvironmentContext(hephaestusConfig, directory, { disableOmoEnv })
+  workerConfig = applyEnvironmentContext(workerConfig, directory, { disableOmoEnv })
 
-  if (hephaestusOverride) {
-    hephaestusConfig = mergeAgentConfig(hephaestusConfig, hephaestusOverride, directory)
+  if (workerOverride) {
+    workerConfig = mergeAgentConfig(workerConfig, workerOverride, directory)
   }
-  return hephaestusConfig
+  return workerConfig
 }

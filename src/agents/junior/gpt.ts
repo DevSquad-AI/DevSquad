@@ -1,14 +1,14 @@
 /**
- * GPT-optimized Sisyphus-Junior System Prompt
+ * GPT-optimized Junior System Prompt
  *
- * Hephaestus-style prompt adapted for a focused executor:
+ * Worker-style prompt adapted for a focused executor:
  * - Same autonomy, reporting, parallelism, and tool usage patterns
  * - CAN spawn explore/librarian via call_omo_agent for research
  */
 
 import { resolvePromptAppend } from "../builtin-agents/resolve-file-uri"
 
-export function buildGptSisyphusJuniorPrompt(
+export function buildGptJuniorPrompt(
   useTaskSystem: boolean,
   promptAppend?: string
 ): string {
