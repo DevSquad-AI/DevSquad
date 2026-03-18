@@ -23,7 +23,7 @@ Paste this to your LLM agent (Claude Code, Cursor, etc.):
 
 ```
 Install and configure devsquad by following the instructions here:
-https://raw.githubusercontent.com/devsquad-ai/devsquad/master/docs/guide/installation.md
+https://github.com/devsquad-ai/devsquad/blob/master/docs/guide/installation.md
 ```
 
 ### For Humans
