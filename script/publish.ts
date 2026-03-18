@@ -137,7 +137,7 @@ async function generateChangelog(previous: string, currentVersion?: string): Pro
 async function getContributors(previous: string): Promise<string[]> {
   const notes: string[] = []
 
-  const team = ["actions-user", "github-actions[bot]", "code-yeongyu"]
+  const team = ["actions-user", "github-actions[bot]", "devsquad-team"]
 
   try {
     const compare =

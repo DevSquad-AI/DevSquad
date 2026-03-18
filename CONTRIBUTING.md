@@ -61,7 +61,7 @@ If English isn't your first language, don't worry! We value your contributions r
 
 ```bash
 # Clone the repository
-git clone https://github.com/code-yeongyu/devsquad.git
+git clone https://github.com/devsquad-ai/devsquad.git
 cd devsquad
 
 # Install dependencies (bun only - never use npm/yarn)

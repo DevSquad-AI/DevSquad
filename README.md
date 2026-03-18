@@ -82,5 +82,5 @@ Also supports: Claude, GPT, Gemini as fallbacks.
 SUL-1.0 - See LICENSE.md
 
 ## Credits
-
-Built on the shoulders of giants - inspired by Claude Code, and AmpCode.
+Built on the shoulders of giants - inspired by Claude Code, OpenCode, and AmpCode.
+Thank you to Oh-My-OpenCode (oh-my-opencode) for laying the foundation.

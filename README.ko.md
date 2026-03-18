@@ -7,7 +7,7 @@
 >
 > 사칭 사이트는 페이월 뒤에 숨어 있어 **어떤 악성 코드를 배포하는지 확인할 수 없습니다**. 해당 사이트의 다운로드는 모두 **잠재적 위험**으로 간주하세요.
 >
-> ✅ 공식 다운로드: https://github.com/code-yeongyu/devsquad/releases
+> ✅ 공식 다운로드: https://github.com/devsquad-ai/devsquad/releases
 
 > [!NOTE]
 >
@@ -20,15 +20,14 @@
 > | [<img alt="Discord link" src="https://img.shields.io/discord/1452487457085063218?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=flat-square" width="156px" />](https://discord.gg/PUwSMR9XNk) | [Discord 커뮤니티](https://discord.gg/PUwSMR9XNk)에 가입하여 기여자 및 다른 `devsquad` 사용자들과 소통하세요. |
 > | :-----| :----- |
 > | [<img alt="X link" src="https://img.shields.io/badge/Follow-%40justsisyphus-00CED1?style=flat-square&logo=x&labelColor=black" width="156px" />](https://x.com/justsisyphus) | `devsquad`에 대한 소식과 업데이트는 제 X 계정에 올라왔었지만, <br /> 실수로 정지된 이후에는 [@justsisyphus](https://x.com/justsisyphus)가 대신 업데이트를 게시하고 있습니다. |
-> | [<img alt="GitHub Follow" src="https://img.shields.io/github/followers/code-yeongyu?style=flat-square&logo=github&labelColor=black&color=24292f" width="156px" />](https://github.com/code-yeongyu) | 더 많은 프로젝트를 보려면 GitHub에서 [@code-yeongyu](https://github.com/code-yeongyu)를 팔로우하세요. |
 
 <!-- <CENTERED SECTION FOR GITHUB DISPLAY> -->
 
 <div align="center">
 
-[![Oh My OpenCode](./.github/assets/hero.jpg)](https://github.com/code-yeongyu/devsquad#devsquad)
+[![Oh My OpenCode](./.github/assets/hero.jpg)](https://github.com/devsquad-ai/devsquad#devsquad)
 
-[![Preview](./.github/assets/omo.png)](https://github.com/code-yeongyu/devsquad#devsquad)
+[![Preview](./.github/assets/omo.png)](https://github.com/devsquad-ai/devsquad#devsquad)
 
 </div>
 
@@ -38,14 +37,14 @@
 
 <div align="center">
 
-[![GitHub Release](https://img.shields.io/github/v/release/code-yeongyu/devsquad?color=369eff&labelColor=black&logo=github&style=flat-square)](https://github.com/code-yeongyu/devsquad/releases)
+[![GitHub Release](https://img.shields.io/github/v/release/devsquad-ai/devsquad?color=369eff&labelColor=black&logo=github&style=flat-square)](https://github.com/devsquad-ai/devsquad/releases)
 [![npm downloads](https://img.shields.io/npm/dt/devsquad?color=ff6b35&labelColor=black&style=flat-square)](https://www.npmjs.com/package/devsquad)
-[![GitHub Contributors](https://img.shields.io/github/contributors/code-yeongyu/devsquad?color=c4f042&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/devsquad/graphs/contributors)
-[![GitHub Forks](https://img.shields.io/github/forks/code-yeongyu/devsquad?color=8ae8ff&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/devsquad/network/members)
-[![GitHub Stars](https://img.shields.io/github/stars/code-yeongyu/devsquad?color=ffcb47&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/devsquad/stargazers)
-[![GitHub Issues](https://img.shields.io/github/issues/code-yeongyu/devsquad?color=ff80eb&labelColor=black&style=flat-square)](https://github.com/code-yeongyu/devsquad/issues)
-[![License](https://img.shields.io/badge/license-SUL--1.0-white?labelColor=black&style=flat-square)](https://github.com/code-yeongyu/devsquad/blob/master/LICENSE.md)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/code-yeongyu/devsquad)
+[![GitHub Contributors](https://img.shields.io/github/contributors/devsquad-ai/devsquad?color=c4f042&labelColor=black&style=flat-square)](https://github.com/devsquad-ai/devsquad/graphs/contributors)
+[![GitHub Forks](https://img.shields.io/github/forks/devsquad-ai/devsquad?color=8ae8ff&labelColor=black&style=flat-square)](https://github.com/devsquad-ai/devsquad/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/devsquad-ai/devsquad?color=ffcb47&labelColor=black&style=flat-square)](https://github.com/devsquad-ai/devsquad/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/devsquad-ai/devsquad?color=ff80eb&labelColor=black&style=flat-square)](https://github.com/devsquad-ai/devsquad/issues)
+[![License](https://img.shields.io/badge/license-SUL--1.0-white?labelColor=black&style=flat-square)](https://github.com/devsquad-ai/devsquad/blob/master/LICENSE.md)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/devsquad-ai/devsquad)
 
 [English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md) | [简体中文](README.zh-cn.md)
 
@@ -95,7 +94,7 @@ OmO 설치하고. `ultrawork` 치세요. 끝.
 
 ```
 Install and configure devsquad by following the instructions here:
-https://raw.githubusercontent.com/code-yeongyu/devsquad/refs/heads/master/docs/guide/installation.md
+https://raw.githubusercontent.com/devsquad-ai/devsquad/refs/heads/master/docs/guide/installation.md
 ```
 
 아니면 [설치 가이드](docs/guide/installation.md)를 직접 읽으셔도 되지만, 진심으로 그냥 에이전트한테 시키세요. 사람은 설정하다 꼭 오타 냅니다.
@@ -105,7 +104,7 @@ https://raw.githubusercontent.com/code-yeongyu/devsquad/refs/heads/master/docs/g
 설치 가이드를 가져와서 따라 하세요:
 
 ```bash
-curl -s https://raw.githubusercontent.com/code-yeongyu/devsquad/refs/heads/master/docs/guide/installation.md
+curl -s https://raw.githubusercontent.com/devsquad-ai/devsquad/refs/heads/master/docs/guide/installation.md
 ```
 
 ---
@@ -115,7 +114,7 @@ curl -s https://raw.githubusercontent.com/code-yeongyu/devsquad/refs/heads/maste
 문서 읽는 시대는 지났습니다. 그냥 이 텍스트를 에이전트한테 붙여넣으세요:
 
 ```
-Read this and tell me why it's not just another boilerplate: https://raw.githubusercontent.com/code-yeongyu/devsquad/refs/heads/dev/README.md
+Read this and tell me why it's not just another boilerplate: https://raw.githubusercontent.com/devsquad-ai/devsquad/refs/heads/dev/README.md
 ```
 
 ## 핵심 기능

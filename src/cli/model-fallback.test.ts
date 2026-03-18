@@ -515,7 +515,7 @@ describe("generateModelConfig", () => {
 
       // #then should include correct schema URL
       expect(result.$schema).toBe(
-        "https://raw.githubusercontent.com/code-yeongyu/devsquad/master/assets/devsquad.schema.json"
+        "https://raw.githubusercontent.com/devsquad-ai/devsquad/master/assets/devsquad.schema.json"
       )
     })
   })
