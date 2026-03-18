@@ -2,7 +2,7 @@
 
 Portions of this software are licensed as follows:
 
-- All third party components incorporated into the oh-my-opencode Software are licensed under the original license
+- All third party components incorporated into the devsquad Software are licensed under the original license
   provided by the owner of the applicable component.
 - Content outside of the above mentioned files or restrictions is available under the "Sustainable Use
   License" as defined below.

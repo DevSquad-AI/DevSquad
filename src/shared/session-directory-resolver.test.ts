@@ -28,7 +28,7 @@ describe("session-directory-resolver", () => {
 
     test("returns false when path is outside AppData", () => {
       //#given
-      const directory = "D:/projects/oh-my-opencode"
+      const directory = "D:/projects/devsquad"
 
       //#when
       const result = isWindowsAppDataDirectory(directory)
@@ -56,14 +56,14 @@ describe("session-directory-resolver", () => {
         parentDirectory: "C:\\Users\\test\\AppData\\Local\\ai.opencode.desktop",
         fallbackDirectory: "C:\\Users\\test\\AppData\\Roaming\\opencode",
         platform: "win32" as const,
-        currentWorkingDirectory: "D:\\projects\\oh-my-opencode",
+        currentWorkingDirectory: "D:\\projects\\devsquad",
       }
 
       //#when
       const result = resolveSessionDirectory(options)
 
       //#then
-      expect(result).toBe("D:\\projects\\oh-my-opencode")
+      expect(result).toBe("D:\\projects\\devsquad")
     })
 
     test("keeps AppData directory when current working directory is also AppData", () => {

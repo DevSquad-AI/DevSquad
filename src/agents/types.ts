@@ -2,8 +2,8 @@ import type { AgentConfig } from "@opencode-ai/sdk"
 
 /**
  * Agent mode determines UI model selection behavior:
- * - "primary": Respects user's UI-selected model (sisyphus, atlas)
- * - "subagent": Uses own fallback chain, ignores UI selection (oracle, explore, etc.)
+ * - "primary": Respects user's UI-selected model (leader, planner)
+ * - "subagent": Uses own fallback chain, ignores UI selection (architect, scout, etc.)
  * - "all": Available in both contexts (OpenCode compatibility)
  */
 export type AgentMode = "primary" | "subagent" | "all"
@@ -93,17 +93,26 @@ export function isGeminiModel(model: string): boolean {
   return modelName.startsWith("gemini-")
 }
 
-export type BuiltinAgentName =
-  | "sisyphus"
-  | "hephaestus"
-  | "oracle"
-  | "librarian"
-  | "explore"
-  | "multimodal-looker"
-  | "metis"
-  | "momus"
-  | "atlas"
-
+#NR|export type BuiltinAgentName =
+#RV|  | "leader"
+#SB|  | "worker"
+#ZR|  | "architect"
+#QH|  | "researcher"
+#VT|  | "scout"
+#MH|  | "multimodal-looker"
+#PP|  | "advisor"
+#QS|  | "reviewer"
+#ZQ|  | "planner"
+#SB|  // Legacy agent names (for backward compatibility)
+#NT|  | "sisyphus"
+#QT|  | "hephaestus"
+#VT|  | "oracle"
+#MH|  | "librarian"
+#PP|  | "explore"
+#ZQ|  | "metis"
+#QS|  | "momus"
+#RM|  | "atlas"
+#HT|  | "prometheus"
 export type OverridableAgentName =
   | "build"
   | BuiltinAgentName

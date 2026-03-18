@@ -4,7 +4,7 @@
 
 ## OVERVIEW
 
-37 files. Powers the `oh-my-opencode run <message>` command. Connects to OpenCode server, creates/resumes sessions, streams events, and polls for completion.
+37 files. Powers the `devsquad run <message>` command. Connects to OpenCode server, creates/resumes sessions, streams events, and polls for completion.
 
 ## EXECUTION FLOW
 

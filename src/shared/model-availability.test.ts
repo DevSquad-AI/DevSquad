@@ -670,7 +670,7 @@ describe("fetchAvailableModels with provider-models cache (whitelist-filtered)",
 	})
 
 	function writeProviderModelsCache(data: { models: Record<string, string[] | any[]>; connected: string[] }) {
-		const cacheDir = join(tempDir, "oh-my-opencode")
+		const cacheDir = join(tempDir, "devsquad")
 		require("fs").mkdirSync(cacheDir, { recursive: true })
 		writeFileSync(join(cacheDir, "provider-models.json"), JSON.stringify({
 			...data,
@@ -897,7 +897,7 @@ describe("fallback model availability", () => {
 	})
 
 	function writeConnectedProvidersCache(connected: string[]): void {
-		const cacheDir = join(tempDir, "oh-my-opencode")
+		const cacheDir = join(tempDir, "devsquad")
 		require("fs").mkdirSync(cacheDir, { recursive: true })
 		writeFileSync(
 			join(cacheDir, "connected-providers.json"),

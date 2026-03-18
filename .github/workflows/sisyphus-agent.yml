@@ -69,14 +69,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bun-
 
-      # Build local oh-my-opencode
-      - name: Build oh-my-opencode
+      # Build local devsquad
+      - name: Build devsquad
         run: |
           bun install
           bun run build
 
       # Install OpenCode + configure local plugin + auth in single step
-      - name: Setup OpenCode with oh-my-opencode
+      - name: Setup OpenCode with devsquad
         env:
           OPENCODE_AUTH_JSON: ${{ secrets.OPENCODE_AUTH_JSON }}
           ANTHROPIC_BASE_URL: ${{ secrets.ANTHROPIC_BASE_URL }}
@@ -102,14 +102,14 @@ jobs:
           fi
           opencode --version
 
-          # Run local oh-my-opencode install (uses built dist)
+          # Run local devsquad install (uses built dist)
           bun run dist/cli/index.js install --no-tui --claude=max20 --openai=no --gemini=no --copilot=no
 
           # Override plugin to use local file reference
           OPENCODE_JSON=~/.config/opencode/opencode.json
           REPO_PATH=$(pwd)
           jq --arg path "file://$REPO_PATH/src/index.ts" '
-            .plugin = [.plugin[] | select(. != "oh-my-opencode")] + [$path]
+            .plugin = [.plugin[] | select(. != "devsquad")] + [$path]
           ' "$OPENCODE_JSON" > /tmp/oc.json && mv /tmp/oc.json "$OPENCODE_JSON"
 
           OPENCODE_JSON=~/.config/opencode/opencode.json
@@ -190,7 +190,7 @@ jobs:
             }
           ' "$OPENCODE_JSON" > /tmp/oc.json && mv /tmp/oc.json "$OPENCODE_JSON"
 
-          OMO_JSON=~/.config/opencode/oh-my-opencode.json
+          OMO_JSON=~/.config/opencode/devsquad.json
           PROMPT_APPEND=$(cat << 'PROMPT_EOF'
           <ultrawork-mode>
           [CODE RED] Maximum precision required. Ultrathink before acting.
@@ -397,7 +397,7 @@ jobs:
               --add-label "sisyphus: working" || true
           fi
 
-      - name: Run oh-my-opencode
+      - name: Run devsquad
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           USER_COMMENT: ${{ steps.context.outputs.comment }}

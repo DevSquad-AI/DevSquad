@@ -4,7 +4,7 @@
 
 ## OVERVIEW
 
-18 files. Full OAuth 2.0 authorization flow for MCP servers requiring authentication. Implements PKCE (RFC 7636), Dynamic Client Registration (DCR, RFC 7591), and resource indicators (RFC 8707). Used by `bunx oh-my-opencode mcp-oauth login`.
+18 files. Full OAuth 2.0 authorization flow for MCP servers requiring authentication. Implements PKCE (RFC 7636), Dynamic Client Registration (DCR, RFC 7591), and resource indicators (RFC 8707). Used by `bunx devsquad mcp-oauth login`.
 
 ## AUTHORIZATION FLOW
 
@@ -48,7 +48,7 @@ Fields: `access_token`, `refresh_token`, `expires_at`, `client_id`.
 ## CLI COMMANDS
 
 ```bash
-bunx oh-my-opencode mcp-oauth login <server-url>   # Full PKCE flow
-bunx oh-my-opencode mcp-oauth logout <server-url>  # Revoke + delete token
-bunx oh-my-opencode mcp-oauth status               # List stored tokens
+bunx devsquad mcp-oauth login <server-url>   # Full PKCE flow
+bunx devsquad mcp-oauth logout <server-url>  # Revoke + delete token
+bunx devsquad mcp-oauth status               # List stored tokens
 ```

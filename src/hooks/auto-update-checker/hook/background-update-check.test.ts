@@ -12,7 +12,7 @@ type ToastMessageGetter = (isUpdate: boolean, version?: string) => string
 
 function createPluginEntry(overrides?: Partial<PluginEntry>): PluginEntry {
   return {
-    entry: "oh-my-opencode@3.4.0",
+    entry: "devsquad@3.4.0",
     isPinned: false,
     pinnedVersion: null,
     configPath: "/test/opencode.json",
@@ -90,7 +90,7 @@ describe("runBackgroundUpdateCheck", () => {
   describe("#given no version available", () => {
     it("returns early when neither cached nor pinned version exists", async () => {
       //#given
-      mockFindPluginEntry.mockReturnValue(createPluginEntry({ entry: "oh-my-opencode" }))
+      mockFindPluginEntry.mockReturnValue(createPluginEntry({ entry: "devsquad" }))
       mockGetCachedVersion.mockReturnValue(null)
       //#when
       await runBackgroundUpdateCheck(mockCtx, true, getToastMessage)

@@ -23,7 +23,7 @@ describe("getPluginNameWithVersion", () => {
     const result = await getPluginNameWithVersion("2.14.0")
 
     // #then should use @latest tag
-    expect(result).toBe("oh-my-opencode@latest")
+    expect(result).toBe("devsquad@latest")
   })
 
   test("returns @beta when current version matches beta tag", async () => {
@@ -39,7 +39,7 @@ describe("getPluginNameWithVersion", () => {
     const result = await getPluginNameWithVersion("3.0.0-beta.3")
 
     // #then should use @beta tag
-    expect(result).toBe("oh-my-opencode@beta")
+    expect(result).toBe("devsquad@beta")
   })
 
   test("returns @next when current version matches next tag", async () => {
@@ -55,7 +55,7 @@ describe("getPluginNameWithVersion", () => {
     const result = await getPluginNameWithVersion("3.1.0-next.1")
 
     // #then should use @next tag
-    expect(result).toBe("oh-my-opencode@next")
+    expect(result).toBe("devsquad@next")
   })
 
   test("returns prerelease channel tag when no dist-tag matches prerelease version", async () => {
@@ -71,7 +71,7 @@ describe("getPluginNameWithVersion", () => {
     const result = await getPluginNameWithVersion("3.0.0-beta.2")
 
     // #then should preserve prerelease channel
-    expect(result).toBe("oh-my-opencode@beta")
+    expect(result).toBe("devsquad@beta")
   })
 
   test("returns prerelease channel tag when fetch fails", async () => {
@@ -82,7 +82,7 @@ describe("getPluginNameWithVersion", () => {
     const result = await getPluginNameWithVersion("3.0.0-beta.3")
 
     // #then should preserve prerelease channel
-    expect(result).toBe("oh-my-opencode@beta")
+    expect(result).toBe("devsquad@beta")
   })
 
   test("returns bare package name when npm returns non-ok response for stable version", async () => {
@@ -98,7 +98,7 @@ describe("getPluginNameWithVersion", () => {
     const result = await getPluginNameWithVersion("2.14.0")
 
     // #then should fall back to bare package entry
-    expect(result).toBe("oh-my-opencode")
+    expect(result).toBe("devsquad")
   })
 
   test("prioritizes latest over other tags when version matches multiple", async () => {
@@ -114,7 +114,7 @@ describe("getPluginNameWithVersion", () => {
     const result = await getPluginNameWithVersion("3.0.0")
 
     // #then should prioritize @latest
-    expect(result).toBe("oh-my-opencode@latest")
+    expect(result).toBe("devsquad@latest")
   })
 })
 
@@ -135,7 +135,7 @@ describe("fetchNpmDistTags", () => {
     ) as unknown as typeof fetch
 
     // #when fetching dist-tags
-    const result = await fetchNpmDistTags("oh-my-opencode")
+    const result = await fetchNpmDistTags("devsquad")
 
     // #then should return the tags
     expect(result).toEqual({ latest: "2.14.0", beta: "3.0.0-beta.3" })
@@ -146,7 +146,7 @@ describe("fetchNpmDistTags", () => {
     globalThis.fetch = mock(() => Promise.reject(new Error("Network error"))) as unknown as typeof fetch
 
     // #when fetching dist-tags
-    const result = await fetchNpmDistTags("oh-my-opencode")
+    const result = await fetchNpmDistTags("devsquad")
 
     // #then should return null
     expect(result).toBeNull()
@@ -162,7 +162,7 @@ describe("fetchNpmDistTags", () => {
     ) as unknown as typeof fetch
 
     // #when fetching dist-tags
-    const result = await fetchNpmDistTags("oh-my-opencode")
+    const result = await fetchNpmDistTags("devsquad")
 
     // #then should return null
     expect(result).toBeNull()
@@ -277,7 +277,7 @@ describe("generateOmoConfig - model fallback system", () => {
     const result = generateOmoConfig(config)
 
     // #then Sisyphus is omitted (requires all fallback providers)
-    expect(result.$schema).toBe("https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json")
+    expect(result.$schema).toBe("https://raw.githubusercontent.com/code-yeongyu/devsquad/master/assets/devsquad.schema.json")
     expect((result.agents as Record<string, { model: string }>).sisyphus).toBeUndefined()
   })
 

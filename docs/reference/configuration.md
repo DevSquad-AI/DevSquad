@@ -1,6 +1,6 @@
 # Configuration Reference
 
-Complete reference for `oh-my-opencode.jsonc` configuration. This document covers every available option with examples.
+Complete reference for `devsquad.jsonc` configuration. This document covers every available option with examples.
 
 ---
 
@@ -44,22 +44,22 @@ Complete reference for `oh-my-opencode.jsonc` configuration. This document cover
 
 Priority order (project overrides user):
 
-1. `.opencode/oh-my-opencode.jsonc` / `.opencode/oh-my-opencode.json`
+1. `.opencode/devsquad.jsonc` / `.opencode/devsquad.json`
 2. User config (`.jsonc` preferred over `.json`):
 
 | Platform | Path |
 |----------|------|
-| macOS/Linux | `~/.config/opencode/oh-my-opencode.jsonc` |
-| Windows | `%APPDATA%\opencode\oh-my-opencode.jsonc` |
+| macOS/Linux | `~/.config/opencode/devsquad.jsonc` |
+| Windows | `%APPDATA%\opencode\devsquad.jsonc` |
 
 JSONC supports `// line comments`, `/* block comments */`, and trailing commas.
 
 Enable schema autocomplete:
 ```json
-{ "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json" }
+{ "$schema": "https://raw.githubusercontent.com/code-yeongyu/devsquad/master/assets/devsquad.schema.json" }
 ```
 
-Run `bunx oh-my-opencode install` for guided setup. Run `opencode models` to list available models.
+Run `bunx devsquad install` for guided setup. Run `opencode models` to list available models.
 
 ### Quick Start Example
 
@@ -67,7 +67,7 @@ Here's a practical starting configuration:
 
 ```jsonc
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/devsquad/master/assets/devsquad.schema.json",
 
   "agents": {
     // Main orchestrator: Claude Opus or Kimi K2.5 work best
@@ -275,7 +275,7 @@ Disable categories: `{ "disabled_categories": ["ultrabrain"] }`
 | **unspecified-high** | `claude-opus-4-6` | anthropic → openai → google (via github-copilot/opencode) |
 | **writing** | `k2p5` | kimi-for-coding → google → anthropic |
 
-Run `bunx oh-my-opencode doctor --verbose` to see effective model resolution for your config.
+Run `bunx devsquad doctor --verbose` to see effective model resolution for your config.
 
 ---
 

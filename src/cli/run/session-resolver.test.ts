@@ -86,7 +86,7 @@ describe("resolveSession", () => {
     expect(result).toBe("new-session-id")
     expect(mockClient.session.create).toHaveBeenCalledWith({
       body: {
-        title: "oh-my-opencode run",
+        title: "devsquad run",
         permission: [
           { permission: "question", action: "deny", pattern: "*" },
         ],
@@ -113,7 +113,7 @@ describe("resolveSession", () => {
     expect(mockClient.session.create).toHaveBeenCalledTimes(2)
     expect(mockClient.session.create).toHaveBeenCalledWith({
       body: {
-        title: "oh-my-opencode run",
+        title: "devsquad run",
         permission: [
           { permission: "question", action: "deny", pattern: "*" },
         ],

@@ -37,7 +37,7 @@ describe("loadJsonFile", () => {
     unlinkSync(tempPath)
   })
 
-  it("discovers JSONC-only user config (oh-my-opencode.jsonc)", () => {
+  it("discovers JSONC-only user config (devsquad.jsonc)", () => {
     const originalEnv = process.env.OPENCODE_CONFIG_DIR
     const tempBase = join(tmpdir(), `omo-test-user-jsonc-${Date.now()}-${Math.random().toString(36).slice(2)}`)
     try {
@@ -53,7 +53,7 @@ describe("loadJsonFile", () => {
     }
   }
 }`
-      const userPath = join(tempBase, "oh-my-opencode.jsonc")
+      const userPath = join(tempBase, "devsquad.jsonc")
       writeFileSync(userPath, userJsonc, "utf-8")
 
       const servers = getMergedServers()
@@ -95,7 +95,7 @@ describe("loadJsonFile", () => {
     }
   })
 
-  it("discovers JSONC-only project config (.opencode/oh-my-opencode.jsonc)", () => {
+  it("discovers JSONC-only project config (.opencode/devsquad.jsonc)", () => {
     const originalCwd = process.cwd()
     const tempProject = join(tmpdir(), `omo-test-project-jsonc-${Date.now()}-${Math.random().toString(36).slice(2)}`)
     try {
@@ -109,7 +109,7 @@ describe("loadJsonFile", () => {
     }
   }
 }`
-      const projectPath = join(tempProject, ".opencode", "oh-my-opencode.jsonc")
+      const projectPath = join(tempProject, ".opencode", "devsquad.jsonc")
       writeFileSync(projectPath, projectJsonc, "utf-8")
 
       process.chdir(tempProject)
@@ -146,8 +146,8 @@ describe("loadJsonFile", () => {
     }
   }
 }`
-      writeFileSync(join(tempBase, "oh-my-opencode.json"), jsonContent, "utf-8")
-      writeFileSync(join(tempBase, "oh-my-opencode.jsonc"), jsoncContent, "utf-8")
+      writeFileSync(join(tempBase, "devsquad.json"), jsonContent, "utf-8")
+      writeFileSync(join(tempBase, "devsquad.jsonc"), jsoncContent, "utf-8")
 
       const servers = getMergedServers()
       const found = servers.find(s => s.id === "conflict" && s.source === "user")

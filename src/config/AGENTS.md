@@ -10,7 +10,7 @@
 
 ```
 config/schema/
-├── oh-my-opencode-config.ts    # ROOT: OhMyOpenCodeConfigSchema (composes all below)
+├── devsquad-config.ts    # ROOT: OhMyOpenCodeConfigSchema (composes all below)
 ├── agent-names.ts              # BuiltinAgentNameSchema (11), OverridableAgentNameSchema (14)
 ├── agent-overrides.ts          # AgentOverrideConfigSchema (21 fields per agent)
 ├── categories.ts               # 8 built-in + custom categories
@@ -45,6 +45,6 @@ config/schema/
 ## HOW TO ADD CONFIG
 
 1. Create `src/config/schema/{name}.ts` with Zod schema
-2. Add field to `oh-my-opencode-config.ts` root schema
+2. Add field to `devsquad-config.ts` root schema
 3. Reference via `z.infer<typeof YourSchema>` for TypeScript types
 4. Access in handlers via `pluginConfig.{name}`

@@ -39,9 +39,9 @@ export function getConfigPaths(): { project: string; user: string; opencode: str
   const configDir = getOpenCodeConfigDir({ binary: "opencode" })
   return {
     project: detectConfigFile(join(cwd, ".opencode", "devsquad")).path
-        || detectConfigFile(join(cwd, ".opencode", "oh-my-opencode")).path,
+        || detectConfigFile(join(cwd, ".opencode", "devsquad")).path,
     user: detectConfigFile(join(configDir, "devsquad")).path
-        || detectConfigFile(join(configDir, "oh-my-opencode")).path,
+        || detectConfigFile(join(configDir, "devsquad")).path,
     opencode: detectConfigFile(join(configDir, "opencode")).path,
   }
 }

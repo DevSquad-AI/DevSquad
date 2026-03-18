@@ -28,24 +28,53 @@ function getLibcFamily() {
 
 function main() {
   const { platform, arch } = process;
-
-  let libcFamily = undefined;
-  if (platform === "linux") {
-    libcFamily = getLibcFamily();
+  const libcFamily = getLibcFamily();
+  
+  // Get platform package name
+  let pkg;
+  try {
+    pkg = getPlatformPackage({ platform, arch, libcFamily });
+  } catch (error) {
+    console.error(`\ndevsquad: ${error.message}\n`);
+    process.exit(1);
+  }
+  
+  // Resolve binary path
+  const binRelPath = getBinaryPath(pkg, platform);
+  
+  let binPath;
+  try {
+    binPath = require.resolve(binRelPath);
+  } catch {
+    console.error(`\ndevsquad: Platform binary not installed.`);
+    console.error(`\nYour platform: ${platform}-${arch}${libcFamily === "musl" ? "-musl" : ""}`);
+    console.error(`Expected package: ${pkg}`);
+    console.error(`\nTo fix, run:`);
+    console.error(`  npm install ${pkg}\n`);
+    process.exit(1);
+  }
+  
+  // Spawn the binary
+  const result = spawnSync(binPath, process.argv.slice(2), {
+    stdio: "inherit",
+  });
+  
+  // Handle spawn errors
+  if (result.error) {
+    console.error(`\ndevsquad: Failed to execute binary.`);
+    console.error(`Error: ${result.error.message}\n`);
+    process.exit(2);
+  }
+  
+  // Handle signals
+  if (result.signal) {
+    const signalNum = result.signal === "SIGTERM" ? 15 : 
+                      result.signal === "SIGKILL" ? 9 :
+                      result.signal === "SIGINT" ? 2 : 1;
+    process.exit(128 + signalNum);
   }
 
-  const platformPackage = getPlatformPackage({ platform, arch, libcFamily });
-  const binaryPath = getBinaryPath(platformPackage, platform);
-
-  const child = spawnSync(binaryPath, process.argv.slice(2), {
-    stdio: "inherit",
-    env: {
-      ...process.env,
-      DEV_SQUAD: "true",
-    },
-  });
-
-  process.exitCode = child.status;
+  process.exit(result.status ?? 1);
 }
 
 main();

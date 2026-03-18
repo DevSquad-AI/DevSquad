@@ -2,7 +2,7 @@
 
 > The Best AI Agent Harness - Optimized for Chinese Models (Qwen, MiniMax, GLM)
 
-DevSquad is a powerful OpenCode plugin that transforms your AI coding assistant into a coordinated development team. Built on the foundation of oh-my-opencode, with optimized defaults for Chinese AI models.
+DevSquad is a powerful OpenCode plugin that transforms your AI coding assistant into a coordinated development team. Built on the foundation of opencode, with optimized defaults for Chinese AI models.
 
 ## Features
 
@@ -83,4 +83,4 @@ SUL-1.0 - See LICENSE.md
 
 ## Credits
 
-Built on the shoulders of giants - inspired by oh-my-opencode, Claude Code, and AmpCode.
+Built on the shoulders of giants - inspired by Claude Code, and AmpCode.

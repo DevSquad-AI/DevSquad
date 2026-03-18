@@ -12,7 +12,7 @@ export function formatVerbose(result: DoctorResult): string {
   lines.push(`${color.bold("System Information")}`)
   lines.push(`${color.dim("\u2500".repeat(40))}`)
   lines.push(`  ${formatStatusSymbol("pass")} opencode    ${systemInfo.opencodeVersion ?? "unknown"}`)
-  lines.push(`  ${formatStatusSymbol("pass")} oh-my-opencode ${systemInfo.pluginVersion ?? "unknown"}`)
+  lines.push(`  ${formatStatusSymbol("pass")} devsquad ${systemInfo.pluginVersion ?? "unknown"}`)
   if (systemInfo.loadedVersion) {
     lines.push(`  ${formatStatusSymbol("pass")} loaded      ${systemInfo.loadedVersion}`)
   }

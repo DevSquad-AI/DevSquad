@@ -30,12 +30,22 @@ import { buildCustomAgentMetadata, parseRegisteredAgentSummaries } from "./custo
 type AgentSource = AgentFactory | AgentConfig
 
 const agentSources: Record<BuiltinAgentName, AgentSource> = {
+  // New agent names
+  leader: createLeaderAgent,
+  worker: createWorkerAgent,
+  architect: createArchitectAgent,
+  researcher: createResearcherAgent,
+  scout: createScoutAgent,
+  "multimodal-looker": createMultimodalAgent,
+  advisor: createAdvisorAgent,
+  planner: createAtlasAgent as AgentFactory,
+  reviewer: createReviewerAgent,
+  // Legacy agent names (for backward compatibility)
   sisyphus: createLeaderAgent,
   hephaestus: createWorkerAgent,
   oracle: createArchitectAgent,
   librarian: createResearcherAgent,
   explore: createScoutAgent,
-  "multimodal-looker": createMultimodalAgent,
   metis: createAdvisorAgent,
   momus: createReviewerAgent,
   // Note: Atlas is handled specially in createBuiltinAgents()
@@ -48,10 +58,18 @@ const agentSources: Record<BuiltinAgentName, AgentSource> = {
  * (Delegation Table, Tool Selection, Key Triggers, etc.)
  */
 const agentMetadata: Partial<Record<BuiltinAgentName, AgentPromptMetadata>> = {
+  // New agent names
+  architect: ARCHITECT_PROMPT_METADATA,
+  researcher: RESEARCHER_PROMPT_METADATA,
+  scout: SCOUT_PROMPT_METADATA,
+  "multimodal-looker": MULTIMODAL_PROMPT_METADATA,
+  advisor: advisorPromptMetadata,
+  reviewer: reviewerPromptMetadata,
+  planner: atlasPromptMetadata,
+  // Legacy agent names
   oracle: ARCHITECT_PROMPT_METADATA,
   librarian: RESEARCHER_PROMPT_METADATA,
   explore: SCOUT_PROMPT_METADATA,
-  "multimodal-looker": MULTIMODAL_PROMPT_METADATA,
   metis: advisorPromptMetadata,
   momus: reviewerPromptMetadata,
   atlas: atlasPromptMetadata,
@@ -72,7 +90,6 @@ export async function createBuiltinAgents(
   useTaskSystem = false,
   disableOmoEnv = false
 ): Promise<Record<string, AgentConfig>> {
-
   const connectedProviders = readConnectedProvidersCache()
   const providerModelsConnected = connectedProviders
     ? (readProviderModelsCache()?.connected ?? [])
@@ -80,9 +97,6 @@ export async function createBuiltinAgents(
   const mergedConnectedProviders = Array.from(
     new Set([...(connectedProviders ?? []), ...providerModelsConnected])
   )
-  // IMPORTANT: Do NOT call OpenCode client APIs during plugin initialization.
-  // This function is called from config handler, and calling client API causes deadlock.
-  // See: https://github.com/code-yeongyu/oh-my-opencode/issues/1301
   const availableModels = await fetchAvailableModels(undefined, {
     connectedProviders: mergedConnectedProviders.length > 0 ? mergedConnectedProviders : undefined,
   })
@@ -151,7 +165,8 @@ export async function createBuiltinAgents(
     disableOmoEnv,
   })
   if (leaderConfig) {
-    result["sisyphus"] = leaderConfig
+    result["leader"] = leaderConfig
+    result["sisyphus"] = leaderConfig // Backward compatibility
   }
 
   const workerConfig = maybeCreateWorkerConfig({
@@ -169,7 +184,8 @@ export async function createBuiltinAgents(
     disableOmoEnv,
   })
   if (workerConfig) {
-    result["hephaestus"] = workerConfig
+    result["worker"] = workerConfig
+    result["hephaestus"] = workerConfig // Backward compatibility
   }
 
   // Add pending agents after leader and worker to maintain order
@@ -190,7 +206,8 @@ export async function createBuiltinAgents(
     userCategories: categories,
   })
   if (atlasConfig) {
-    result["atlas"] = atlasConfig
+    result["planner"] = atlasConfig
+    result["atlas"] = atlasConfig // Backward compatibility
   }
 
   return result

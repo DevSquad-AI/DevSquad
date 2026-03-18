@@ -15,8 +15,8 @@ Just better results, cheaper models, real orchestration.
 Paste this into your LLM agent session:
 
 ```
-Install and configure oh-my-opencode by following the instructions here:
-https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/refs/heads/master/docs/guide/installation.md
+Install and configure devsquad by following the instructions here:
+https://raw.githubusercontent.com/code-yeongyu/devsquad/refs/heads/master/docs/guide/installation.md
 ```
 
 Or read the full [Installation Guide](./installation.md) for manual setup, provider authentication, and troubleshooting.
@@ -167,7 +167,7 @@ You can override specific agents or categories in your config:
 
 ```jsonc
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/devsquad/master/assets/devsquad.schema.json",
 
   "agents": {
     // Main orchestrator: Claude Opus or Kimi K2.5 work best

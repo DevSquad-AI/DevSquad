@@ -140,7 +140,7 @@ export function loadPluginConfig(
   // User-level config path - prefer .jsonc over .json
   const configDir = getOpenCodeConfigDir({ binary: "opencode" });
   
-  // Try devsquad config first, then fall back to oh-my-opencode for compatibility
+  // Try devsquad config first, then fall back to devsquad for compatibility
   const userDevsquadPath = path.join(configDir, "devsquad");
   const userDevsquadDetected = detectConfigFile(userDevsquadPath);
   const userDevsquadConfigPath =
@@ -148,7 +148,7 @@ export function loadPluginConfig(
       ? userDevsquadDetected.path
       : userDevsquadPath + ".jsonc";
   
-  const userOmoPath = path.join(configDir, "oh-my-opencode");
+  const userOmoPath = path.join(configDir, "devsquad");
   const userOmoDetected = detectConfigFile(userOmoPath);
   const userOmoConfigPath =
     userOmoDetected.format !== "none"
@@ -161,7 +161,7 @@ export function loadPluginConfig(
     : userOmoConfigPath;
 
   // Project-level config path - prefer .jsonc over .json
-  // Try devsquad config first, then fall back to oh-my-opencode for compatibility
+  // Try devsquad config first, then fall back to devsquad for compatibility
   const projectDevsquadPath = path.join(directory, ".opencode", "devsquad");
   const projectDevsquadDetected = detectConfigFile(projectDevsquadPath);
   const projectDevsquadConfigPath =
@@ -169,7 +169,7 @@ export function loadPluginConfig(
       ? projectDevsquadDetected.path
       : projectDevsquadPath + ".jsonc";
   
-  const projectOmoPath = path.join(directory, ".opencode", "oh-my-opencode");
+  const projectOmoPath = path.join(directory, ".opencode", "devsquad");
   const projectOmoDetected = detectConfigFile(projectOmoPath);
   const projectOmoConfigPath =
     projectOmoDetected.format !== "none"

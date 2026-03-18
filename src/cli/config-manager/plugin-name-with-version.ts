@@ -1,6 +1,6 @@
 import { fetchNpmDistTags } from "./npm-dist-tags"
 
-const PACKAGE_NAME = "oh-my-opencode"
+const PACKAGE_NAME = "devsquad"
 const PRIORITIZED_TAGS = ["latest", "beta", "next"] as const
 
 function getFallbackEntry(version: string): string {

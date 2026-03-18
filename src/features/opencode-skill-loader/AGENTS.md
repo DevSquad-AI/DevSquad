@@ -11,7 +11,7 @@
 ```
 1. Project (.opencode/skills/)
 2. OpenCode config (~/.config/opencode/skills/)
-3. User (~/.config/opencode/oh-my-opencode/skills/)
+3. User (~/.config/opencode/devsquad/skills/)
 4. Global (built-in skills)
 ```
 

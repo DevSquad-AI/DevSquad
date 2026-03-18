@@ -1,15 +1,15 @@
-# oh-my-opencode — OpenCode Plugin
+# devsquad — OpenCode Plugin
 
 **Generated:** 2026-02-24 | **Commit:** fcb90d92 | **Branch:** dev
 
 ## OVERVIEW
 
-OpenCode plugin (npm: `oh-my-opencode`) that extends Claude Code (OpenCode fork) with multi-agent orchestration, 46 lifecycle hooks, 26 tools, skill/command/MCP systems, and Claude Code compatibility. 1208 TypeScript files, 143k LOC.
+OpenCode plugin (npm: `devsquad`) that extends Claude Code (OpenCode fork) with multi-agent orchestration, 46 lifecycle hooks, 26 tools, skill/command/MCP systems, and Claude Code compatibility. 1208 TypeScript files, 143k LOC.
 
 ## STRUCTURE
 
 ```
-oh-my-opencode/
+devsquad/
 ├── src/
 │   ├── index.ts              # Plugin entry: loadConfig → createManagers → createTools → createHooks → createPluginInterface
 │   ├── plugin-config.ts      # JSONC multi-level config: user → project → defaults (Zod v4)
@@ -70,7 +70,7 @@ OhMyOpenCodePlugin(ctx)
 ## MULTI-LEVEL CONFIG
 
 ```
-Project (.opencode/oh-my-opencode.jsonc)  →  User (~/.config/opencode/oh-my-opencode.jsonc)  →  Defaults
+Project (.opencode/devsquad.jsonc)  →  User (~/.config/opencode/devsquad.jsonc)  →  Defaults
 ```
 
 Fields: agents (14 overridable, 21 fields each), categories (8 built-in + custom), disabled_* arrays (agents, hooks, mcps, skills, commands, tools), 19 feature-specific configs.
@@ -112,9 +112,9 @@ Fields: agents (14 overridable, 21 fields each), categories (8 built-in + custom
 bun test                    # Bun test suite
 bun run build              # Build plugin (ESM + declarations + schema)
 bun run typecheck           # tsc --noEmit
-bunx oh-my-opencode install # Interactive setup
-bunx oh-my-opencode doctor  # Health diagnostics
-bunx oh-my-opencode run     # Non-interactive session
+bunx devsquad install # Interactive setup
+bunx devsquad doctor  # Health diagnostics
+bunx devsquad run     # Non-interactive session
 ```
 
 ## CI/CD
@@ -128,7 +128,7 @@ bunx oh-my-opencode run     # Non-interactive session
 
 ## NOTES
 
-- Logger writes to `/tmp/oh-my-opencode.log` — check there for debugging
+- Logger writes to `/tmp/devsquad.log` — check there for debugging
 - Background tasks: 5 concurrent per model/provider (configurable)
 - Plugin load timeout: 10s for Claude Code plugins
 - Model fallback priority: Claude > OpenAI > Gemini > Copilot > OpenCode Zen > Z.ai > Kimi
