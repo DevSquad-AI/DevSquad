@@ -13,17 +13,19 @@ interface PlatformTarget {
   description: string;
 }
 
-#NR|  { dir: "darwin-arm64", target: "bun-darwin-arm64", binary: "devsquad", description: "macOS ARM64" },
-#XK|  { dir: "darwin-x64", target: "bun-darwin-x64", binary: "devsquad", description: "macOS x64" },
-#KN|  { dir: "darwin-x64-baseline", target: "bun-darwin-x64-baseline", binary: "devsquad", description: "macOS x64 (no AVX2)" },
-#GW|  { dir: "linux-x64", target: "bun-linux-x64", binary: "devsquad", description: "Linux x64 (glibc)" },
-#ZS|  { dir: "linux-x64-baseline", target: "bun-linux-x64-baseline", binary: "devsquad", description: "Linux x64 (glibc, no AVX2)" },
-#YA|  { dir: "linux-arm64", target: "bun-linux-arm64", binary: "devsquad", description: "Linux ARM64 (glibc)" },
-#YB|  { dir: "linux-x64-musl", target: "bun-linux-x64-musl", binary: "devsquad", description: "Linux x64 (musl)" },
-#RC|  { dir: "linux-x64-musl-baseline", target: "bun-linux-x64-musl-baseline", binary: "devsquad", description: "Linux x64 (musl, no AVX2)" },
-#KX|  { dir: "linux-arm64-musl", target: "bun-linux-arm64-musl", binary: "devsquad", description: "Linux ARM64 (musl)" },
-#ZQ|  { dir: "windows-x64", target: "bun-windows-x64", binary: "devsquad.exe", description: "Windows x64" },
-#WB|  { dir: "windows-x64-baseline", target: "bun-windows-x64-baseline", binary: "devsquad.exe", description: "Windows x64 (no AVX2)" },
+export const PLATFORMS: PlatformTarget[] = [
+  { dir: "darwin-arm64", target: "bun-darwin-arm64", binary: "devsquad", description: "macOS ARM64" },
+  { dir: "darwin-x64", target: "bun-darwin-x64", binary: "devsquad", description: "macOS x64" },
+  { dir: "darwin-x64-baseline", target: "bun-darwin-x64-baseline", binary: "devsquad", description: "macOS x64 (no AVX2)" },
+  { dir: "linux-x64", target: "bun-linux-x64", binary: "devsquad", description: "Linux x64 (glibc)" },
+  { dir: "linux-x64-baseline", target: "bun-linux-x64-baseline", binary: "devsquad", description: "Linux x64 (glibc, no AVX2)" },
+  { dir: "linux-arm64", target: "bun-linux-arm64", binary: "devsquad", description: "Linux ARM64 (glibc)" },
+  { dir: "linux-x64-musl", target: "bun-linux-x64-musl", binary: "devsquad", description: "Linux x64 (musl)" },
+  { dir: "linux-x64-musl-baseline", target: "bun-linux-x64-musl-baseline", binary: "devsquad", description: "Linux x64 (musl, no AVX2)" },
+  { dir: "linux-arm64-musl", target: "bun-linux-arm64-musl", binary: "devsquad", description: "Linux ARM64 (musl)" },
+  { dir: "windows-x64", target: "bun-windows-x64", binary: "devsquad.exe", description: "Windows x64" },
+  { dir: "windows-x64-baseline", target: "bun-windows-x64-baseline", binary: "devsquad.exe", description: "Windows x64 (no AVX2)" },
+];
 
 const ENTRY_POINT = "src/cli/index.ts";
 
@@ -58,7 +60,7 @@ async function buildPlatform(platform: PlatformTarget): Promise<boolean> {
   }
 }
 
-  console.log("🔨 Building devsquad platform binaries");
+async function main() {
   console.log("🔨 Building devsquad platform binaries");
   console.log(`   Entry point: ${ENTRY_POINT}`);
   console.log(`   Platforms: ${PLATFORMS.length}`);

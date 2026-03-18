@@ -44,10 +44,10 @@ export function getConfigJsonc(): string {
   return getConfigContext().paths.configJsonc
 }
 
-#NR|export function getOmoConfigPath(): string {
-#QQ|  return getConfigContext().paths.omoConfig
-#KQ|}
-#YH|
-#NR|export function getDevsquadConfigPath(): string {
-#QQ|  return getConfigContext().paths.devsquadConfig ?? getConfigContext().paths.omoConfig
-#KQ|}
+export function getOmoConfigPath(): string {
+  return getConfigContext().paths.omoConfig
+}
+
+export function getDevsquadConfigPath(): string {
+  return getConfigContext().paths.devsquadConfig ?? getConfigContext().paths.omoConfig
+}

@@ -57,29 +57,17 @@ export const AgentOverrideConfigSchema = z.object({
 
 export const AgentOverridesSchema = z.object({
   build: AgentOverrideConfigSchema.optional(),
-  build: AgentOverrideConfigSchema.optional(),
   plan: AgentOverrideConfigSchema.optional(),
+  // New agent names
   leader: AgentOverrideConfigSchema.optional(),
   worker: AgentOverrideConfigSchema.optional(),
-  sisyphus: AgentOverrideConfigSchema.optional(),
-  hephaestus: AgentOverrideConfigSchema.optional(),
-  "sisyphus-junior": AgentOverrideConfigSchema.optional(),
-  "OpenCode-Builder": AgentOverrideConfigSchema.optional(),
-  advisor: AgentOverrideConfigSchema.optional(),
-  prometheus: AgentOverrideConfigSchema.optional(),
-  reviewer: AgentOverrideConfigSchema.optional(),
-  metis: AgentOverrideConfigSchema.optional(),
-  momus: AgentOverrideConfigSchema.optional(),
   architect: AgentOverrideConfigSchema.optional(),
-  oracle: AgentOverrideConfigSchema.optional(),
   researcher: AgentOverrideConfigSchema.optional(),
-  librarian: AgentOverrideConfigSchema.optional(),
   scout: AgentOverrideConfigSchema.optional(),
-  explore: AgentOverrideConfigSchema.optional(),
-  "multimodal-looker": AgentOverrideConfigSchema.optional(),
+  advisor: AgentOverrideConfigSchema.optional(),
   planner: AgentOverrideConfigSchema.optional(),
-  atlas: AgentOverrideConfigSchema.optional(),
-})
+  reviewer: AgentOverrideConfigSchema.optional(),
+  // Legacy agent names (for backward compatibility)
   sisyphus: AgentOverrideConfigSchema.optional(),
   hephaestus: AgentOverrideConfigSchema.optional(),
   "sisyphus-junior": AgentOverrideConfigSchema.optional(),
