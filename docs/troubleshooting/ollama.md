@@ -67,7 +67,7 @@ The proper fix requires OpenCode/Claude Code SDK to:
 3. Merge `tool_calls` from multiple lines
 4. Return a single merged response
 
-**Tracking**: https://github.com/code-yeongyu/devsquad/issues/1124
+**Tracking**: https://github.com/devsquad-ai/devsquad/issues/1124
 
 ## Workaround Implementation
 
@@ -114,7 +114,7 @@ curl -s http://localhost:11434/api/chat \
 
 ## Related Issues
 
-- **devsquad**: https://github.com/code-yeongyu/devsquad/issues/1124
+- **devsquad**: https://github.com/devsquad-ai/devsquad/issues/1124
 - **Ollama API Docs**: https://github.com/ollama/ollama/blob/main/docs/api.md
 
 ## Getting Help

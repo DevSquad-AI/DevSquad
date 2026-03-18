@@ -162,7 +162,7 @@ See the [Orchestration System Guide](./orchestration.md) for how agents dispatch
 
 ```jsonc
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/devsquad/master/assets/devsquad.schema.json",
+  "$schema": "https://raw.githubusercontent.com/devsquad-ai/devsquad/master/assets/devsquad.schema.json",
 
   "agents": {
     // Main orchestrator: Claude Opus or Kimi K2.5 work best
