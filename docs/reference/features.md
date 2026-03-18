@@ -1,34 +1,34 @@
-# Oh-My-OpenCode Features Reference
+# DevSquad Features Reference
 
 ## Agents
 
-Oh-My-OpenCode provides 11 specialized AI agents. Each has distinct expertise, optimized models, and tool permissions.
+DevSquad provides 11 specialized AI agents. Each has distinct expertise, optimized models, and tool permissions.
 
 ### Core Agents
 
 | Agent | Model | Purpose |
 |-------|-------|---------|
-| **Sisyphus** | `claude-opus-4-6` | The default orchestrator. Plans, delegates, and executes complex tasks using specialized subagents with aggressive parallel execution. Todo-driven workflow with extended thinking (32k budget). Fallback: gpt-5.3-codex → deep quality chain. |
-| **Hephaestus** | `gpt-5.3-codex` | The Legitimate Craftsman. Autonomous deep worker inspired by AmpCode's deep mode. Goal-oriented execution with thorough research before action. Explores codebase patterns, completes tasks end-to-end without premature stopping. Named after the Greek god of forge and craftsmanship. Fallback: deep quality chain (claude-opus-4-6-thinking → step-3.5-flash → glm-5 → ...). Requires at least one model in the chain to be available. |
-| **Oracle** | `gpt-5.3-codex` | Architecture decisions, code review, debugging. Read-only consultation with stellar logical reasoning and deep analysis. Inspired by AmpCode. Fallback: claude-opus-4-6-thinking → claude-sonnet-4-5-thinking → deep quality chain. |
-| **Librarian** | `claude-sonnet-4-5` | Multi-repo analysis, documentation lookup, OSS implementation examples. Deep codebase understanding with evidence-based answers. Fallback: speed chain (claude-haiku-4-5 → gpt-5-mini → ...) → quality chain. |
-| **Explore** | `claude-haiku-4-5` | Fast codebase exploration and contextual grep. Fallback: oswe-vscode-prime → gpt-5-mini → gpt-4.1 → extended speed chain. |
+| **Leader** | `claude-opus-4-6` | The default orchestrator. Plans, delegates, and executes complex tasks using specialized subagents with aggressive parallel execution. Todo-driven workflow with extended thinking (32k budget). Fallback: gpt-5.3-codex → deep quality chain. |
+| **Worker** | `gpt-5.3-codex` | The Legitimate Craftsman. Autonomous deep worker inspired by AmpCode's deep mode. Goal-oriented execution with thorough research before action. Scouts codebase patterns, completes tasks end-to-end without premature stopping. Named after the Greek god of forge and craftsmanship. Fallback: deep quality chain (claude-opus-4-6-thinking → step-3.5-flash → glm-5 → ...). Requires at least one model in the chain to be available. |
+| **Architect** | `gpt-5.3-codex` | Architecture decisions, code review, debugging. Read-only consultation with stellar logical reasoning and deep analysis. Inspired by AmpCode. Fallback: claude-opus-4-6-thinking → claude-sonnet-4-5-thinking → deep quality chain. |
+| **Researcher** | `claude-sonnet-4-5` | Multi-repo analysis, documentation lookup, OSS implementation examples. Deep codebase understanding with evidence-based answers. Fallback: speed chain (claude-haiku-4-5 → gpt-5-mini → ...) → quality chain. |
+| **Scout** | `claude-haiku-4-5` | Fast codebase exploration and contextual grep. Fallback: oswe-vscode-prime → gpt-5-mini → gpt-4.1 → extended speed chain. |
 | **Multimodal-Looker** | `gemini-3-pro-image` | Visual content specialist. Analyzes PDFs, images, diagrams to extract information. Fallback: gemini-3-pro-high → gemini-3-flash → kimi-k2.5 → claude-opus-4-6-thinking → claude-sonnet-4-5-thinking → claude-haiku-4-5 → gpt-5-nano. |
 
 ### Planning Agents
 
 | Agent | Model | Purpose |
 |-------|-------|---------|
-| **Prometheus** | `claude-opus-4-6-thinking` | Strategic planner with interview mode. Creates detailed work plans through iterative questioning. Fallback: gpt-5.3-codex → claude-sonnet-4-5-thinking → deep quality chain. |
-| **Metis** | `claude-opus-4-6-thinking` | Plan consultant — pre-planning analysis. Identifies hidden intentions, ambiguities, and AI failure points. Fallback: gpt-5.3-codex → claude-sonnet-4-5-thinking → deep quality chain. |
-| **Momus** | `gpt-5.3-codex` | Plan reviewer — validates plans against clarity, verifiability, and completeness standards. Fallback: claude-opus-4-6-thinking → deep quality chain. |
+| **Advisor** | `claude-opus-4-6-thinking` | Strategic planner with interview mode. Creates detailed work plans through iterative questioning. Fallback: gpt-5.3-codex → claude-sonnet-4-5-thinking → deep quality chain. |
+| **Advisor** | `claude-opus-4-6-thinking` | Plan consultant — pre-planning analysis. Identifies hidden intentions, ambiguities, and AI failure points. Fallback: gpt-5.3-codex → claude-sonnet-4-5-thinking → deep quality chain. |
+| **Reviewer** | `gpt-5.3-codex` | Plan reviewer — validates plans against clarity, verifiability, and completeness standards. Fallback: claude-opus-4-6-thinking → deep quality chain. |
 
 ### Orchestration Agents
 
 | Agent | Model | Purpose |
 |-------|-------|---------|
-| **Atlas** | `claude-sonnet-4-5-thinking` | Todo-list orchestrator. Executes planned tasks systematically, managing todo items and coordinating work. Fallback: claude-opus-4-6-thinking → gpt-5.3-codex → deep quality chain. |
-| **Sisyphus-Junior** | *(category-dependent)* | Category-spawned executor. Model is selected automatically based on the task category (visual-engineering, quick, deep, etc.). Used when the main agent delegates work via the `task` tool. |
+| **Planner** | `claude-sonnet-4-5-thinking` | Todo-list orchestrator. Executes planned tasks systematically, managing todo items and coordinating work. Fallback: claude-opus-4-6-thinking → gpt-5.3-codex → deep quality chain. |
+| **Leader-Junior** | *(category-dependent)* | Category-spawned executor. Model is selected automatically based on the task category (visual-engineering, quick, deep, etc.). Used when the main agent delegates work via the `task` tool. |
 
 ### Invoking Agents
 
@@ -180,9 +180,9 @@ You can define custom categories in `devsquad.json`.
 }
 ```
 
-### Sisyphus-Junior as Delegated Executor
+### Leader-Junior as Delegated Executor
 
-When you use a Category, a special agent called **Sisyphus-Junior** performs the work.
+When you use a Category, a special agent called **Leader-Junior** performs the work.
 
 - **Characteristic**: Cannot **re-delegate** tasks to other agents.
 - **Purpose**: Prevents infinite delegation loops and ensures focus on the assigned task.
@@ -230,7 +230,7 @@ Skills provide specialized workflows with embedded MCP servers and detailed inst
 
 ### Browser Automation Options
 
-Oh-My-OpenCode provides two browser automation providers, configurable via `browser_automation_engine.provider`.
+DevSquad provides two browser automation providers, configurable via `browser_automation_engine.provider`.
 
 #### Option 1: Playwright MCP (Default)
 
@@ -298,7 +298,7 @@ This content will be injected into the agent's system prompt.
 **Skill Load Locations** (priority order, highest first):
 - `.opencode/skills/*/SKILL.md` (project, OpenCode native)
 - `~/.config/opencode/skills/*/SKILL.md` (user, OpenCode native)
-- `.claude/skills/*/SKILL.md` (project, Claude Code compat)
+- `.claude/skills/*/SKILL.md` (project, OpenCode/Claude Code compat)
 - `.agents/skills/*/SKILL.md` (project, Agents convention)
 - `~/.agents/skills/*/SKILL.md` (user, Agents convention)
 
@@ -360,10 +360,10 @@ Commands are slash-triggered workflows that execute predefined templates.
 |---------|-------------|
 | `/init-deep` | Initialize hierarchical AGENTS.md knowledge base |
 | `/ralph-loop` | Start self-referential development loop until completion |
-| `/ulw-loop` | Start ultrawork loop - continues with ultrawork mode |
+| `/ulw-loop` | Start upup loop - continues with upup mode |
 | `/cancel-ralph` | Cancel active Ralph Loop |
 | `/refactor` | Intelligent refactoring with LSP, AST-grep, architecture analysis, and TDD verification |
-| `/start-work` | Start Sisyphus work session from Prometheus plan |
+| `/start-work` | Start Leader work session from Advisor plan |
 | `/stop-continuation` | Stop all continuation mechanisms (ralph loop, todo continuation, boulder) for this session |
 | `/handoff` | Create a detailed context summary for continuing work in a new session |
 
@@ -408,7 +408,7 @@ project/
 
 ### /ulw-loop
 
-**Purpose**: Same as ralph-loop but with ultrawork mode active
+**Purpose**: Same as ralph-loop but with upup mode active
 
 Everything runs at maximum intensity - parallel agents, background tasks, aggressive exploration.
 
@@ -430,7 +430,7 @@ Everything runs at maximum intensity - parallel agents, background tasks, aggres
 
 ### /start-work
 
-**Purpose**: Start execution from a Prometheus-generated plan
+**Purpose**: Start execution from a Advisor-generated plan
 
 **Usage**:
 ```
@@ -456,8 +456,8 @@ Generates a structured handoff document capturing the current state, what was do
 Load custom commands from:
 - `.opencode/command/*.md` (project, OpenCode native)
 - `~/.config/opencode/command/*.md` (user, OpenCode native)
-- `.claude/commands/*.md` (project, Claude Code compat)
-- `~/.config/opencode/commands/*.md` (user, Claude Code compat)
+- `.claude/commands/*.md` (project, OpenCode/Claude Code compat)
+- `~/.config/opencode/commands/*.md` (user, OpenCode/Claude Code compat)
 
 ## Tools
 
@@ -536,7 +536,7 @@ Requires `experimental.task_system: true` in config.
 
 #### Task System Details
 
-**Note on Claude Code Alignment**: This implementation follows Claude Code's internal Task tool signatures (`TaskCreate`, `TaskUpdate`, `TaskList`, `TaskGet`) and field naming conventions (`subject`, `blockedBy`, `blocks`, etc.). However, Anthropic has not published official documentation for these tools. This is Oh My OpenCode's own implementation based on observed Claude Code behavior and internal specifications.
+**Note on OpenCode/Claude Code Alignment**: This implementation follows OpenCode/Claude Code's internal Task tool signatures (`TaskCreate`, `TaskUpdate`, `TaskList`, `TaskGet`) and field naming conventions (`subject`, `blockedBy`, `blocks`, etc.). However, Anthropic has not published official documentation for these tools. This is DevSquad's own implementation based on observed OpenCode/Claude Code behavior and internal specifications.
 
 **Task Schema**:
 ```ts
@@ -582,7 +582,7 @@ TaskUpdate({ id: "T-002", status: "completed" })
 // T-003 now unblocked
 ```
 
-**Storage**: Tasks are stored as JSON files in `.sisyphus/tasks/`.
+**Storage**: Tasks are stored as JSON files in `.leader/tasks/`.
 
 **Difference from TodoWrite**:
 
@@ -650,7 +650,7 @@ Hooks intercept and modify behavior at key points in the agent lifecycle. 44 hoo
 
 | Hook | Event | Description |
 |------|-------|-------------|
-| **keyword-detector** | Message + Transform | Detects keywords and activates modes: `ultrawork`/`ulw` (max performance), `search`/`find` (parallel exploration), `analyze`/`investigate` (deep analysis). |
+| **keyword-detector** | Message + Transform | Detects keywords and activates modes: `upup`/`ulw` (max performance), `search`/`find` (parallel exploration), `analyze`/`investigate` (deep analysis). |
 | **think-mode** | Params | Auto-detects extended thinking needs. Catches "think deeply", "ultrathink" and adjusts model settings. |
 | **ralph-loop** | Event + Message | Manages self-referential loop continuation. |
 | **start-work** | Message | Handles /start-work command execution. |
@@ -690,7 +690,7 @@ Hooks intercept and modify behavior at key points in the agent lifecycle. 44 hoo
 
 | Hook | Event | Description |
 |------|-------|-------------|
-| **auto-update-checker** | Event | Checks for new versions on session creation, shows startup toast with version and Sisyphus status. |
+| **auto-update-checker** | Event | Checks for new versions on session creation, shows startup toast with version and Leader status. |
 | **background-notification** | Event | Notifies when background agent tasks complete. |
 | **session-notification** | Event | OS notifications when agents go idle. Works on macOS, Linux, Windows. |
 | **agent-usage-reminder** | PostToolUse + Event | Reminds you to leverage specialized agents for better results. |
@@ -717,7 +717,7 @@ Hooks intercept and modify behavior at key points in the agent lifecycle. 44 hoo
 
 | Hook | Event | Description |
 |------|-------|-------------|
-| **claude-code-hooks** | All | Executes hooks from Claude Code's settings.json. |
+| **claude-code-hooks** | All | Executes hooks from OpenCode/Claude Code's settings.json. |
 | **atlas** | Multiple | Main orchestration logic for todo-driven work sessions. |
 | **interactive-bash-session** | PostToolUse + Event | Manages tmux sessions for interactive CLI. |
 | **non-interactive-env** | PreToolUse | Handles non-interactive environment constraints. |
@@ -726,14 +726,14 @@ Hooks intercept and modify behavior at key points in the agent lifecycle. 44 hoo
 
 | Hook | Event | Description |
 |------|-------|-------------|
-| **prometheus-md-only** | PreToolUse | Enforces markdown-only output for Prometheus planner. |
-| **no-sisyphus-gpt** | Message | Prevents Sisyphus from running on incompatible GPT models. |
-| **no-hephaestus-non-gpt** | Message | Prevents Hephaestus from running on non-GPT models. |
-| **sisyphus-junior-notepad** | PreToolUse | Manages notepad state for Sisyphus-Junior agents. |
+| **prometheus-md-only** | PreToolUse | Enforces markdown-only output for Advisor planner. |
+| **no-sisyphus-gpt** | Message | Prevents Leader from running on incompatible GPT models. |
+| **no-hephaestus-non-gpt** | Message | Prevents Worker from running on non-GPT models. |
+| **sisyphus-junior-notepad** | PreToolUse | Manages notepad state for Leader-Junior agents. |
 
-### Claude Code Hooks Integration
+### OpenCode/Claude Code Hooks Integration
 
-Run custom scripts via Claude Code's `settings.json`:
+Run custom scripts via OpenCode/Claude Code's `settings.json`:
 
 ```json
 {
@@ -858,9 +858,9 @@ Supports:
 - `alwaysApply: true` for unconditional rules
 - Walks upward from file to project root, plus `~/.claude/rules/`
 
-## Claude Code Compatibility
+## OpenCode/Claude Code Compatibility
 
-Full compatibility layer for Claude Code configurations.
+Full compatibility layer for OpenCode/Claude Code configurations.
 
 ### Config Loaders
 
@@ -893,11 +893,11 @@ Disable specific features:
 | Toggle | Disables |
 |--------|----------|
 | `mcp` | `.mcp.json` files (keeps built-in MCPs) |
-| `commands` | Command loading from Claude Code paths |
-| `skills` | Skill loading from Claude Code paths |
-| `agents` | Agent loading from Claude Code paths (keeps built-in agents) |
+| `commands` | Command loading from OpenCode/Claude Code paths |
+| `skills` | Skill loading from OpenCode/Claude Code paths |
+| `agents` | Agent loading from OpenCode/Claude Code paths (keeps built-in agents) |
 | `hooks` | settings.json hooks |
-| `plugins` | Claude Code marketplace plugins |
+| `plugins` | OpenCode/Claude Code marketplace plugins |
 
 Disable specific plugins:
 

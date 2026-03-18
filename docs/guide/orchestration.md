@@ -1,6 +1,6 @@
 # Orchestration System Guide
 
-Oh My OpenCode's orchestration system transforms a simple AI agent into a coordinated development team through **separation of planning and execution**.
+DevSquad's orchestration system transforms a simple AI agent into a coordinated development team through **separation of planning and execution**.
 
 ---
 
@@ -9,8 +9,8 @@ Oh My OpenCode's orchestration system transforms a simple AI agent into a coordi
 | Complexity | Approach | When to Use |
 |------------|----------|-------------|
 | **Simple** | Just prompt | Simple tasks, quick fixes, single-file changes |
-| **Complex + Lazy** | Type `ulw` or `ultrawork` | Complex tasks where explaining context is tedious. Agent figures it out. |
-| **Complex + Precise** | `@plan` → `/start-work` | Precise, multi-step work requiring true orchestration. Prometheus plans, Atlas executes. |
+| **Complex + Lazy** | Type `ulw` or `upup` | Complex tasks where explaining context is tedious. Agent figures it out. |
+| **Complex + Precise** | `@plan` → `/start-work` | Precise, multi-step work requiring true orchestration. Advisor plans, Planner executes. |
 
 **Decision Flow:**
 
@@ -20,7 +20,7 @@ Is it a quick fix or simple task?
   └─ NO  → Is explaining the full context tedious?
               └─ YES → Type "ulw" and let the agent figure it out
               └─ NO  → Do you need precise, verifiable execution?
-                         └─ YES → Use @plan for Prometheus planning, then /start-work
+                         └─ YES → Use @plan for Advisor planning, then /start-work
                          └─ NO  → Just use "ulw"
 ```
 
@@ -32,62 +32,62 @@ The orchestration system uses a three-layer architecture that solves context ove
 
 ```mermaid
 flowchart TB
-    subgraph Planning["Planning Layer (Human + Prometheus)"]
+    subgraph Planning["Planning Layer (Human + Advisor)"]
         User[(" User")]
-        Prometheus[" Prometheus<br/>(Planner)<br/>Claude Opus 4.6"]
-        Metis[" Metis<br/>(Consultant)<br/>Claude Opus 4.6"]
-        Momus[" Momus<br/>(Reviewer)<br/>GPT-5.2"]
+        Advisor[" Advisor<br/>(Strategic Planner)<br/>Qwen Coder Turbo"]
+        GapAnalyzer[" Gap Analyzer<br/>(Consultant)<br/>Qwen Max"]
+        Reviewer[" Reviewer<br/>(Reviewer)<br/>GLM-5"]
     end
     
     subgraph Execution["Execution Layer (Orchestrator)"]
-        Orchestrator[" Atlas<br/>(Conductor)<br/>K2P5 (Kimi)"]
+        Orchestrator[" Planner<br/>(Conductor)<br/>MiniMax M2.5"]
     end
     
     subgraph Workers["Worker Layer (Specialized Agents)"]
-        Junior[" Sisyphus-Junior<br/>(Task Executor)<br/>Claude Sonnet 4.6"]
-        Oracle[" Oracle<br/>(Architecture)<br/>GPT-5.2"]
-        Explore[" Explore<br/>(Codebase Grep)<br/>Grok Code"]
-        Librarian[" Librarian<br/>(Docs/OSS)<br/>GLM-4.7"]
+        Junior[" Junior<br/>(Task Executor)<br/>MiniMax M2.5"]
+        Architect[" Architect<br/>(Architecture)<br/>GLM-5"]
+        Scout[" Scout<br/>(Codebase Grep)<br/>MiniMax"]
+        Researcher[" Researcher<br/>(Docs/OSS)<br/>GLM-4.7"]
         Frontend[" Frontend<br/>(UI/UX)<br/>Gemini 3 Pro"]
     end
     
-    User -->|"Describe work"| Prometheus
-    Prometheus -->|"Consult"| Metis
-    Prometheus -->|"Interview"| User
-    Prometheus -->|"Generate plan"| Plan[".sisyphus/plans/*.md"]
-    Plan -->|"High accuracy?"| Momus
-    Momus -->|"OKAY / REJECT"| Prometheus
+    User -->|"Describe work"| Advisor
+    Advisor -->|"Consult"| GapAnalyzer
+    Advisor -->|"Interview"| User
+    Advisor -->|"Generate plan"| Plan[".leader/plans/*.md"]
+    Plan -->|"High accuracy?"| Reviewer
+    Reviewer -->|"OKAY / REJECT"| Advisor
     
     User -->|"/start-work"| Orchestrator
     Plan -->|"Read"| Orchestrator
     
     Orchestrator -->|"task(category)"| Junior
-    Orchestrator -->|"task(agent)"| Oracle
-    Orchestrator -->|"task(agent)"| Explore
-    Orchestrator -->|"task(agent)"| Librarian
+    Orchestrator -->|"task(agent)"| Architect
+    Orchestrator -->|"task(agent)"| Scout
+    Orchestrator -->|"task(agent)"| Researcher
     Orchestrator -->|"task(agent)"| Frontend
     
     Junior -->|"Results + Learnings"| Orchestrator
-    Oracle -->|"Advice"| Orchestrator
-    Explore -->|"Code patterns"| Orchestrator
-    Librarian -->|"Documentation"| Orchestrator
+    Architect -->|"Advice"| Orchestrator
+    Scout -->|"Code patterns"| Orchestrator
+    Researcher -->|"Documentation"| Orchestrator
     Frontend -->|"UI code"| Orchestrator
 ```
 
 ---
 
-## Planning: Prometheus + Metis + Momus
+## Planning: Advisor + Gap Analyzer + Reviewer
 
-### Prometheus: Your Strategic Consultant
+### Advisor: Your Strategic Consultant
 
-Prometheus is not just a planner, it's an intelligent interviewer that helps you think through what you actually need. It is **READ-ONLY** - can only create or modify markdown files within `.sisyphus/` directory.
+Advisor is not just a planner, it's an intelligent interviewer that helps you think through what you actually need. It is **READ-ONLY** - can only create or modify markdown files within `.leader/` directory.
 
 **The Interview Process:**
 
 ```mermaid
 stateDiagram-v2
     [*] --> Interview: User describes work
-    Interview --> Research: Launch explore/librarian agents
+    Interview --> Research: Launch Scout/Researcher agents
     Research --> Interview: Gather codebase context
     Interview --> ClearanceCheck: After each response
     
@@ -103,33 +103,33 @@ stateDiagram-v2
         Check: Test strategy confirmed?
     }
     
-    PlanGeneration --> MetisConsult: Mandatory gap analysis
-    MetisConsult --> WritePlan: Incorporate findings
+    PlanGeneration --> GapAnalyzerConsult: Mandatory gap analysis
+    GapAnalyzerConsult --> WritePlan: Incorporate findings
     WritePlan --> HighAccuracyChoice: Present to user
     
-    HighAccuracyChoice --> MomusLoop: User wants high accuracy
+    HighAccuracyChoice --> ReviewerLoop: User wants high accuracy
     HighAccuracyChoice --> Done: User accepts plan
     
-    MomusLoop --> WritePlan: REJECTED - fix issues
-    MomusLoop --> Done: OKAY - plan approved
+    ReviewerLoop --> WritePlan: REJECTED - fix issues
+    ReviewerLoop --> Done: OKAY - plan approved
     
     Done --> [*]: Guide to /start-work
 ```
 
 **Intent-Specific Strategies:**
 
-Prometheus adapts its interview style based on what you're doing:
+Advisor adapts its interview style based on what you're doing:
 
-| Intent | Prometheus Focus | Example Questions |
-|--------|------------------|-------------------|
+| Intent | Advisor Focus | Example Questions |
+|--------|----------------|-------------------|
 | **Refactoring** | Safety - behavior preservation | "What tests verify current behavior?" "Rollback strategy?" |
 | **Build from Scratch** | Discovery - patterns first | "Found pattern X in codebase. Follow it or deviate?" |
 | **Mid-sized Task** | Guardrails - exact boundaries | "What must NOT be included? Hard constraints?" |
 | **Architecture** | Strategic - long-term impact | "Expected lifespan? Scale requirements?" |
 
-### Metis: The Gap Analyzer
+### Gap Analyzer: The Gap Analyzer
 
-Before Prometheus writes the plan, Metis catches what Prometheus missed:
+Before Advisor writes the plan, Gap Analyzer catches what Advisor missed:
 
 - Hidden intentions in user's request
 - Ambiguities that could derail implementation
@@ -137,41 +137,41 @@ Before Prometheus writes the plan, Metis catches what Prometheus missed:
 - Missing acceptance criteria
 - Edge cases not addressed
 
-**Why Metis Exists:**
+**Why Gap Analyzer Exists:**
 
-The plan author (Prometheus) has "ADHD working memory" - it makes connections that never make it onto the page. Metis forces externalization of implicit knowledge.
+The plan author (Advisor) has "ADHD working memory" - it makes connections that never make it onto the page. Gap Analyzer forces externalization of implicit knowledge.
 
-### Momus: The Ruthless Reviewer
+### Reviewer: The Ruthless Reviewer
 
-For high-accuracy mode, Momus validates plans against four core criteria:
+For high-accuracy mode, Reviewer validates plans against four core criteria:
 
 1. **Clarity**: Does each task specify WHERE to find implementation details?
 2. **Verification**: Are acceptance criteria concrete and measurable?
 3. **Context**: Is there sufficient context to proceed without >10% guesswork?
 4. **Big Picture**: Is the purpose, background, and workflow clear?
 
-**The Momus Loop:**
+**The Reviewer Loop:**
 
-Momus only says "OKAY" when:
+Reviewer only says "OKAY" when:
 - 100% of file references verified
 - ≥80% of tasks have clear reference sources
 - ≥90% of tasks have concrete acceptance criteria
 - Zero tasks require assumptions about business logic
 - Zero critical red flags
 
-If REJECTED, Prometheus fixes issues and resubmits. No maximum retry limit.
+If REJECTED, Advisor fixes issues and resubmits. No maximum retry limit.
 
 ---
 
-## Execution: Atlas
+## Execution: Planner
 
 ### The Conductor Mindset
 
-Atlas is like an orchestra conductor: it doesn't play instruments, it ensures perfect harmony.
+Planner is like an orchestra conductor: it doesn't play instruments, it ensures perfect harmony.
 
 ```mermaid
 flowchart LR
-    subgraph Orchestrator["Atlas"]
+    subgraph Orchestrator["Planner"]
         Read["1. Read Plan"]
         Analyze["2. Analyze Tasks"]
         Wisdom["3. Accumulate Wisdom"]
@@ -187,17 +187,17 @@ flowchart LR
     Verify -->|"More tasks"| Delegate
     Verify -->|"All done"| Report
     
-    Delegate -->|"background=false"| Workers["Workers"]
+    Delegate -->|"background=False"| Workers["Workers"]
     Workers -->|"Results + Learnings"| Verify
 ```
 
-**What Atlas CAN do:**
+**What Planner CAN do:**
 - Read files to understand context
 - Run commands to verify results
 - Use lsp_diagnostics to check for errors
 - Search patterns with grep/glob/ast-grep
 
-**What Atlas MUST delegate:**
+**What Planner MUST delegate:**
 - Writing or editing code files
 - Fixing bugs
 - Creating tests
@@ -216,7 +216,7 @@ This prevents repeating mistakes and ensures consistent patterns.
 **Notepad System:**
 
 ```
-.sisyphus/notepads/{plan-name}/
+.leader/notepads/{plan-name}/
 ├── learnings.md      # Patterns, conventions, successful approaches
 ├── decisions.md      # Architectural choices and rationales
 ├── issues.md         # Problems, blockers, gotchas encountered
@@ -226,9 +226,9 @@ This prevents repeating mistakes and ensures consistent patterns.
 
 ---
 
-## Workers: Sisyphus-Junior and Specialists
+## Workers: Junior and Specialists
 
-### Sisyphus-Junior: The Task Executor
+### Junior: The Task Executor
 
 Junior is the workhorse that actually writes code. Key characteristics:
 
@@ -237,10 +237,10 @@ Junior is the workhorse that actually writes code. Key characteristics:
 - **Verified**: Must pass lsp_diagnostics before completion
 - **Constrained**: Cannot modify plan files (READ-ONLY)
 
-**Why Sonnet is Sufficient:**
+**Why MiniMax/GLM is Sufficient:**
 
 Junior doesn't need to be the smartest - it needs to be reliable. With:
-1. Detailed prompts from Atlas (50-200 lines)
+1. Detailed prompts from Planner (50-200 lines)
 2. Accumulated wisdom passed forward
 3. Clear MUST DO / MUST NOT DO constraints
 4. Verification requirements
@@ -262,7 +262,7 @@ You have incomplete todos! Complete ALL before responding:
 DO NOT respond until all todos are marked completed.
 ```
 
-This "boulder pushing" mechanism is why the system is named after Sisyphus.
+This "boulder pushing" mechanism is why the system is named after the leader.
 
 ---
 
@@ -294,11 +294,11 @@ task(category="quick", prompt="...")          // "Just get it done fast"
 | `visual-engineering` | Gemini 3 Pro | Frontend, UI/UX, design, styling, animation |
 | `ultrabrain` | GPT-5.3 Codex (xhigh) | Deep logical reasoning, complex architecture decisions |
 | `artistry` | Gemini 3 Pro (max) | Highly creative or artistic tasks, novel ideas |
-| `quick` | Claude Haiku 4.5 | Trivial tasks - single file changes, typo fixes |
+| `quick` | MiniMax M2.5 | Trivial tasks - single file changes, typo fixes |
 | `deep` | GPT-5.3 Codex (medium) | Goal-oriented autonomous problem-solving, thorough research |
 | `unspecified-low` | Claude Sonnet 4.6 | Tasks that don't fit other categories, low effort |
 | `unspecified-high` | Claude Opus 4.6 (max) | Tasks that don't fit other categories, high effort |
-| `writing` | K2P5 (Kimi) | Documentation, prose, technical writing |
+| `writing` | MiniMax M2.5 | Documentation, prose, technical writing |
 
 ### Skills: Domain-Specific Instructions
 
@@ -323,38 +323,38 @@ task(
 
 ## Usage Patterns
 
-### How to Invoke Prometheus
+### How to Invoke Advisor
 
-**Method 1: Switch to Prometheus Agent (Tab → Select Prometheus)**
+**Method 1: Switch to Advisor Agent (Tab → Select Advisor)**
 
 ```
 1. Press Tab at the prompt
-2. Select "Prometheus" from the agent list
+2. Select "Advisor" from the agent list
 3. Describe your work: "I want to refactor the auth system"
 4. Answer interview questions
-5. Prometheus creates plan in .sisyphus/plans/{name}.md
+5. Advisor creates plan in .leader/plans/{name}.md
 ```
 
-**Method 2: Use @plan Command (in Sisyphus)**
+**Method 2: Use @plan Command (in Leader)**
 
 ```
-1. Stay in Sisyphus (default agent)
+1. Stay in Leader (default agent)
 2. Type: @plan "I want to refactor the auth system"
-3. The @plan command automatically switches to Prometheus
+3. The @plan command automatically switches to Advisor
 4. Answer interview questions
-5. Prometheus creates plan in .sisyphus/plans/{name}.md
+5. Advisor creates plan in .leader/plans/{name}.md
 ```
 
 **Which Should You Use?**
 
 | Scenario | Recommended Method | Why |
 |----------|-------------------|-----|
-| **New session, starting fresh** | Switch to Prometheus agent | Clean mental model - you're entering "planning mode" |
-| **Already in Sisyphus, mid-work** | Use @plan | Convenient, no agent switch needed |
-| **Want explicit control** | Switch to Prometheus agent | Clear separation of planning vs execution contexts |
+| **New session, starting fresh** | Switch to Advisor agent | Clean mental model - you're entering "planning mode" |
+| **Already in Leader, mid-work** | Use @plan | Convenient, no agent switch needed |
+| **Want explicit control** | Switch to Advisor agent | Clear separation of planning vs execution contexts |
 | **Quick planning interrupt** | Use @plan | Fastest path from current context |
 
-Both methods trigger the same Prometheus planning flow. The @plan command is simply a convenience shortcut.
+Both methods trigger the same Advisor planning flow. The @plan command is simply a convenience shortcut.
 
 ### /start-work Behavior and Session Continuity
 
@@ -365,18 +365,18 @@ User: /start-work
     ↓
 [start-work hook activates]
     ↓
-Check: Does .sisyphus/boulder.json exist?
+Check: Does .leader/boulder.json exist?
     ↓
     ├─ YES (existing work) → RESUME MODE
     │   - Read the existing boulder state
     │   - Calculate progress (checked vs unchecked boxes)
     │   - Inject continuation prompt with remaining tasks
-    │   - Atlas continues where you left off
+    │   - Planner continues where you left off
     │
     └─ NO (fresh start) → INIT MODE
-        - Find the most recent plan in .sisyphus/plans/
+        - Find the most recent plan in .leader/plans/
         - Create new boulder.json tracking this plan
-        - Switch session agent to Atlas
+        - Switch session agent to Planner
         - Begin execution from task 1
 ```
 
@@ -393,38 +393,38 @@ The `boulder.json` file tracks:
 ```
 Monday 9:00 AM
   └─ @plan "Build user authentication"
-  └─ Prometheus interviews and creates plan
+  └─ Advisor interviews and creates plan
   └─ User: /start-work
-  └─ Atlas begins execution, creates boulder.json
+  └─ Planner begins execution, creates boulder.json
   └─ Task 1 complete, Task 2 in progress...
   └─ [Session ends - computer crash, user logout, etc.]
 
 Monday 2:00 PM (NEW SESSION)
-  └─ User opens new session (agent = Sisyphus by default)
+  └─ User opens new session (agent = Leader by default)
   └─ User: /start-work
   └─ [start-work hook reads boulder.json]
   └─ "Resuming 'Build user authentication' - 3 of 8 tasks complete"
-  └─ Atlas continues from Task 3 (no context lost)
+  └─ Planner continues from Task 3 (no context lost)
 ```
 
-Atlas is automatically activated when you run `/start-work`. You don't need to manually switch to Atlas.
+Planner is automatically activated when you run `/start-work`. You don't need to manually switch to Planner.
 
-### Hephaestus vs Sisyphus + ultrawork
+### Worker vs Leader + upup
 
 **Quick Comparison:**
 
-| Aspect | Hephaestus | Sisyphus + `ulw` / `ultrawork` |
-|--------|-----------|-------------------------------|
-| **Model** | GPT-5.3 Codex (medium reasoning) | Claude Opus 4.6 (your default) |
-| **Approach** | Autonomous deep worker | Keyword-activated ultrawork mode |
+| Aspect | Worker | Leader + `ulw` / `upup` |
+|--------|--------|-------------------------|
+| **Model** | GPT-5.3 Codex (medium reasoning) | Qwen Coder Turbo (your default) |
+| **Approach** | Autonomous deep worker | Keyword-activated upup mode |
 | **Best For** | Complex architectural work, deep reasoning | General complex tasks, "just do it" scenarios |
-| **Planning** | Self-plans during execution | Uses Prometheus plans if available |
-| **Delegation** | Heavy use of explore/librarian agents | Uses category-based delegation |
+| **Planning** | Self-plans during execution | Uses Advisor plans if available |
+| **Delegation** | Heavy use of Scout/Researcher agents | Uses category-based delegation |
 | **Temperature** | 0.1 | 0.1 |
 
-**When to Use Hephaestus:**
+**When to Use Worker:**
 
-Switch to Hephaestus (Tab → Select Hephaestus) when:
+Switch to Worker (Tab → Select Worker) when:
 
 1. **Deep architectural reasoning needed**
    - "Design a new plugin system"
@@ -441,9 +441,9 @@ Switch to Hephaestus (Tab → Select Hephaestus) when:
 4. **You specifically want GPT-5.3 Codex reasoning**
    - Some problems benefit from GPT-5.3 Codex's training characteristics
 
-**When to Use Sisyphus + `ulw`:**
+**When to Use Leader + `ulw`:**
 
-Use the `ulw` keyword in Sisyphus when:
+Use the `ulw` keyword in Leader when:
 
 1. **You want the agent to figure it out**
    - "ulw fix the failing tests"
@@ -458,13 +458,13 @@ Use the `ulw` keyword in Sisyphus when:
    - Trust the agent to explore and decide
 
 4. **You want to leverage existing plans**
-   - If a Prometheus plan exists, `ulw` mode can use it
+   - If an Advisor plan exists, `ulw` mode can use it
    - Falls back to autonomous exploration if no plan
 
 **Recommendation:**
 
-- **For most users**: Use `ulw` keyword in Sisyphus. It's the default path and works excellently for 90% of complex tasks.
-- **For power users**: Switch to Hephaestus when you specifically need GPT-5.3 Codex's reasoning style or want the "AmpCode deep mode" experience of fully autonomous exploration and execution.
+- **For most users**: Use `ulw` keyword in Leader. It's the default path and works excellently for 90% of complex tasks.
+- **For power users**: Switch to Worker when you specifically need GPT-5.3 Codex's reasoning style or want the "AmpCode deep mode" experience of fully autonomous exploration and execution.
 
 ---
 
@@ -474,16 +474,16 @@ You can control related features in `devsquad.json`:
 
 ```jsonc
 {
-  "sisyphus_agent": {
-    "disabled": false,           // Enable Atlas orchestration (default: false)
-    "planner_enabled": true,     // Enable Prometheus (default: true)
-    "replace_plan": true         // Replace default plan agent with Prometheus (default: true)
+  "leader_agent": {
+    "disabled": false,           // Enable Planner orchestration (default: false)
+    "planner_enabled": true,     // Enable Advisor (default: true)
+    "replace_plan": true         // Replace default plan agent with Advisor (default: true)
   },
   
   // Hook settings (add to disable)
   "disabled_hooks": [
     // "start-work",             // Disable execution trigger
-    // "prometheus-md-only"      // Remove Prometheus write restrictions (not recommended)
+    // "advisor-md-only"          // Remove Advisor write restrictions (not recommended)
   ]
 }
 ```
@@ -492,29 +492,29 @@ You can control related features in `devsquad.json`:
 
 ## Troubleshooting
 
-### "I switched to Prometheus but nothing happened"
+### "I switched to Advisor but nothing happened"
 
-Prometheus enters interview mode by default. It will ask you questions about your requirements. Answer them, then say "make it a plan" when ready.
+Advisor enters interview mode by default. It will ask you questions about your requirements. Answer them, then say "make it a plan" when ready.
 
 ### "/start-work says 'no active plan found'"
 
 Either:
-- No plans exist in `.sisyphus/plans/` → Create one with Prometheus first
-- Plans exist but boulder.json points elsewhere → Delete `.sisyphus/boulder.json` and retry
+- No plans exist in `.leader/plans/` → Create one with Advisor first
+- Plans exist but boulder.json points elsewhere → Delete `.leader/boulder.json` and retry
 
-### "I'm in Atlas but I want to switch back to normal mode"
+### "I'm in Planner but I want to switch back to normal mode"
 
-Type `exit` or start a new session. Atlas is primarily entered via `/start-work` - you don't typically "switch to Atlas" manually.
+Type `exit` or start a new session. Planner is primarily entered via `/start-work` - you don't typically "switch to Planner" manually.
 
-### "What's the difference between @plan and just switching to Prometheus?"
+### "What's the difference between @plan and just switching to Advisor?"
 
-**Nothing functional.** Both invoke Prometheus. @plan is a convenience command while switching agents is explicit control. Use whichever feels natural.
+**Nothing functional.** Both invoke Advisor. @plan is a convenience command while switching agents is explicit control. Use whichever feels natural.
 
-### "Should I use Hephaestus or type ulw?"
+### "Should I use Worker or type ulw?"
 
-**For most tasks**: Type `ulw` in Sisyphus.
+**For most tasks**: Type `ulw` in Leader.
 
-**Use Hephaestus when**: You specifically need GPT-5.3 Codex's reasoning style for deep architectural work or complex debugging.
+**Use Worker when**: You specifically need GPT-5.3 Codex's reasoning style for deep architectural work or complex debugging.
 
 ---
 

@@ -1,6 +1,6 @@
 # Manifesto
 
-The principles and philosophy behind Oh My OpenCode.
+The principles and philosophy behind DevSquad.
 
 ---
 
@@ -20,7 +20,7 @@ When you find yourself:
 
 That's not "human-AI collaboration." That's the AI failing to do its job.
 
-**Oh My OpenCode is built on this premise**: Human intervention during agentic work is fundamentally a wrong signal. If the system is designed correctly, the agent should complete the work without requiring you to babysit it.
+**DevSquad is built on this premise**: Human intervention during agentic work is fundamentally a wrong signal. If the system is designed correctly, the agent should complete the work without requiring you to babysit it.
 
 ---
 
@@ -56,7 +56,7 @@ That's a worthwhile investment when it means 10x, 20x, or 100x productivity gain
 **However:**
 
 Unnecessary token waste is not pursued. The system optimizes for:
-- Using cheaper models (Haiku, Flash) for simple tasks
+- Using cheaper models (MiniMax, Qwen) for simple tasks
 - Avoiding redundant exploration
 - Caching learnings across sessions
 - Stopping research when sufficient context is gathered
@@ -71,11 +71,11 @@ Token efficiency matters. But not at the cost of work quality or human cognitive
 
 Two approaches achieve this:
 
-### Approach 1: Prometheus (Interview Mode)
+### Approach 1: Advisor (Interview Mode)
 
 You say: "I want to add authentication."
 
-Prometheus:
+Advisor:
 - Researches your codebase to understand existing patterns
 - Asks clarifying questions based on actual findings
 - Surfaces edge cases you hadn't considered
@@ -84,7 +84,7 @@ Prometheus:
 
 **You provide intent. The agent provides structure.**
 
-### Approach 2: Ultrawork (Just Do It Mode)
+### Approach 2: Upup (Just Do It Mode)
 
 You say: "ulw add authentication"
 
@@ -130,7 +130,7 @@ Just like you can assign a task to a capable team member and trust them to handl
 This means:
 - Clear acceptance criteria, verified independently
 - Self-correcting behavior when something goes wrong
-- Escalation (to Oracle, to user) only when truly needed
+- Escalation (to Architect, to user) only when truly needed
 - Complete work, not "mostly done"
 
 ---
@@ -144,14 +144,14 @@ Human Intent → Agent Execution → Verified Result
           (intervention only on true failure)
 ```
 
-Everything in Oh My OpenCode is designed to make this loop work:
+Everything in DevSquad is designed to make this loop work:
 
 | Feature | Purpose |
 |---------|---------|
-| Prometheus | Extract intent through intelligent interview |
-| Metis | Catch ambiguities before they become bugs |
-| Momus | Verify plans are complete before execution |
-| Orchestrator | Coordinate work without human micromanagement |
+| Advisor | Extract intent through intelligent interview |
+| Gap Analyzer | Catch ambiguities before they become bugs |
+| Reviewer | Verify plans are complete before execution |
+| Planner | Coordinate work without human micromanagement |
 | Todo Continuation | Force completion, prevent "I'm done" lies |
 | Category System | Route to optimal model without human decision |
 | Background Agents | Parallel research without blocking user |
@@ -165,7 +165,7 @@ Everything in Oh My OpenCode is designed to make this loop work:
 
 1. Describe what you want (high-level or detailed, your choice)
 2. Let the agent interview you if needed
-3. Confirm the plan (or just let ultrawork handle it)
+3. Confirm the plan (or just let upup handle it)
 4. Walk away
 5. Come back to completed, verified, production-ready work
 

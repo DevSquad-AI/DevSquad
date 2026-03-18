@@ -8,31 +8,31 @@ Think of AI models as developers on a team. Each has a different brain, differen
 
 This isn't a bug. It's the foundation of the entire system.
 
-Oh My OpenCode assigns each agent a model that matches its *working style* — like building a team where each person is in the role that fits their personality.
+DevSquad assigns each agent a model that matches its *working style* — like building a team where each person is in the role that fits their personality.
 
-### Sisyphus: The Sociable Lead
+### Leader: The Sociable Lead
 
-Sisyphus is the developer who knows everyone, goes everywhere, and gets things done through communication and coordination. Talks to other agents, understands context across the whole codebase, delegates work intelligently, and codes well too. But deep, purely technical problems? He'll struggle a bit.
+Leader is the developer who knows everyone, goes everywhere, and gets things done through communication and coordination. Talks to other agents, understands context across the whole codebase, delegates work intelligently, and codes well too. But deep, purely technical problems? He'll struggle a bit.
 
-**This is why Sisyphus uses Claude / Kimi / GLM.** These models excel at:
-- Following complex, multi-step instructions (Sisyphus's prompt is ~1,100 lines)
+**This is why Leader uses Claude / Kimi / GLM.** These models excel at:
+- Following complex, multi-step instructions (Leader's prompt is ~1,100 lines)
 - Maintaining conversation flow across many tool calls
 - Understanding nuanced delegation and orchestration patterns
 - Producing well-structured, communicative output
 
-Using Sisyphus with GPT would be like taking your best project manager — the one who coordinates everyone, runs standups, and keeps the whole team aligned — and sticking them in a room alone to debug a race condition. Wrong fit. No GPT prompt exists for Sisyphus, and for good reason.
+Using Leader with GPT would be like taking your best project manager — the one who coordinates everyone, runs standups, and keeps the whole team aligned — and sticking them in a room alone to debug a race condition. Wrong fit. No GPT prompt exists for Leader, and for good reason.
 
-### Hephaestus: The Deep Specialist
+### Worker: The Deep Specialist
 
-Hephaestus is the developer who stays in their room coding all day. Doesn't talk much. Might seem socially awkward. But give them a hard technical problem and they'll emerge three hours later with a solution nobody else could have found.
+Worker is the developer who stays in their room coding all day. Doesn't talk much. Might seem socially awkward. But give them a hard technical problem and they'll emerge three hours later with a solution nobody else could have found.
 
-**This is why Hephaestus uses GPT-5.3 Codex.** Codex is built for exactly this:
+**This is why Worker uses GPT-5.3 Codex.** Codex is built for exactly this:
 - Deep, autonomous exploration without hand-holding
 - Multi-file reasoning across complex codebases
 - Principle-driven execution (give a goal, not a recipe)
 - Working independently for extended periods
 
-Using Hephaestus with GLM or Kimi would be like assigning your most communicative, sociable developer to sit alone and do nothing but deep technical work. They'd get it done eventually, but they wouldn't shine — you'd be wasting exactly the skills that make them valuable.
+Using Worker with GLM or Kimi would be like assigning your most communicative, sociable developer to sit alone and do nothing but deep technical work. They'd get it done eventually, but they wouldn't shine — you'd be wasting exactly the skills that make them valuable.
 
 ### The Takeaway
 
@@ -48,9 +48,9 @@ This matters for understanding why some agents support both model families while
 
 **GPT** (especially 5.2+) responds to **principle-driven** prompts — concise principles, XML structure, explicit decision criteria. More rules = more contradiction surface = more drift. GPT works best when you state the goal and let it figure out the mechanics.
 
-Real example: Prometheus's Claude prompt is ~1,100 lines across 7 files. The GPT prompt achieves the same behavior with 3 principles in ~121 lines. Same outcome, completely different approach.
+Real example: Advisor's Claude prompt is ~1,100 lines across 7 files. The GPT prompt achieves the same behavior with 3 principles in ~121 lines. Same outcome, completely different approach.
 
-Agents that support both families (Prometheus, Atlas) auto-detect your model at runtime and switch prompts via `isGptModel()`. You don't have to think about it.
+Agents that support both families (Advisor, Planner) auto-detect your model at runtime and switch prompts via `isGptModel()`. You don't have to think about it.
 
 ---
 
@@ -62,8 +62,8 @@ These agents have Claude-optimized prompts — long, detailed, mechanics-driven.
 
 | Agent | Role | Fallback Chain | Notes |
 |-------|------|----------------|-------|
-| **Sisyphus** | Main orchestrator | Claude Opus → Kimi K2.5 → GLM 5 | **No GPT prompt.** Claude-family only. |
-| **Metis** | Plan gap analyzer | Claude Opus → Kimi K2.5 → GPT-5.2 → Gemini 3 Pro | Claude preferred, GPT acceptable fallback. |
+| **Leader** | Main orchestrator | Claude Opus → Kimi K2.5 → GLM 5 | **No GPT prompt.** Claude-family only. |
+| **Advisor** | Plan gap analyzer | Claude Opus → Kimi K2.5 → GPT-5.2 → Gemini 3 Pro | Claude preferred, GPT acceptable fallback. |
 
 ### Dual-Prompt Agents → Claude preferred, GPT supported
 
@@ -71,8 +71,8 @@ These agents ship separate prompts for Claude and GPT families. They auto-detect
 
 | Agent | Role | Fallback Chain | Notes |
 |-------|------|----------------|-------|
-| **Prometheus** | Strategic planner | Claude Opus → GPT-5.2 → Kimi K2.5 → Gemini 3 Pro | Interview-mode planning. GPT prompt is compact and principle-driven. |
-| **Atlas** | Todo orchestrator | Kimi K2.5 → Claude Sonnet → GPT-5.2 | Kimi is the sweet spot — Claude-like but cheaper. |
+| **Advisor** | Strategic planner | Claude Opus → GPT-5.2 → Kimi K2.5 → Gemini 3 Pro | Interview-mode planning. GPT prompt is compact and principle-driven. |
+| **Planner** | Todo orchestrator | Kimi K2.5 → Claude Sonnet → GPT-5.2 | Kimi is the sweet spot — Claude-like but cheaper. |
 
 ### Deep Specialists → GPT
 
@@ -80,9 +80,9 @@ These agents are built for GPT's principle-driven style. Their prompts assume au
 
 | Agent | Role | Fallback Chain | Notes |
 |-------|------|----------------|-------|
-| **Hephaestus** | Autonomous deep worker | GPT-5.3 Codex only | No fallback. Requires GPT access. The craftsman. |
-| **Oracle** | Architecture consultant | GPT-5.2 → Gemini 3 Pro → Claude Opus | Read-only high-IQ consultation. |
-| **Momus** | Ruthless reviewer | GPT-5.2 → Claude Opus → Gemini 3 Pro | Verification and plan review. |
+| **Worker** | Autonomous deep worker | GPT-5.3 Codex only | No fallback. Requires GPT access. The craftsman. |
+| **Architect** | Architecture consultant | GPT-5.2 → Gemini 3 Pro → Claude Opus | Read-only high-IQ consultation. |
+| **Reviewer** | Ruthless reviewer | GPT-5.2 → Claude Opus → Gemini 3 Pro | Verification and plan review. |
 
 ### Utility Runners → Speed over Intelligence
 
@@ -90,8 +90,8 @@ These agents do grep, search, and retrieval. They intentionally use the fastest,
 
 | Agent | Role | Fallback Chain | Notes |
 |-------|------|----------------|-------|
-| **Explore** | Fast codebase grep | Grok Code Fast → MiniMax → Haiku → GPT-5-Nano | Speed is everything. Fire 10 in parallel. |
-| **Librarian** | Docs/code search | Gemini Flash → MiniMax → GLM | Doc retrieval doesn't need deep reasoning. |
+| **Scout** | Fast codebase grep | Grok Code Fast → MiniMax → Haiku → GPT-5-Nano | Speed is everything. Fire 10 in parallel. |
+| **Researcher** | Docs/code search | Gemini Flash → MiniMax → GLM | Doc retrieval doesn't need deep reasoning. |
 | **Multimodal Looker** | Vision/screenshots | Kimi K2.5 → Gemini Flash → GPT-5.2 → GLM-4.6v | Kimi excels at multimodal understanding. |
 
 ---
@@ -104,10 +104,10 @@ Communicative, instruction-following, structured output. Best for agents that ne
 
 | Model | Strengths |
 |-------|-----------|
-| **Claude Opus 4.6** | Best overall. Highest compliance with complex prompts. Default for Sisyphus. |
+| **Claude Opus 4.6** | Best overall. Highest compliance with complex prompts. Default for Leader. |
 | **Claude Sonnet 4.6** | Faster, cheaper. Good balance for everyday tasks. |
 | **Claude Haiku 4.5** | Fast and cheap. Good for quick tasks and utility work. |
-| **Kimi K2.5** | Behaves very similarly to Claude. Great all-rounder at lower cost. Default for Atlas. |
+| **Kimi K2.5** | Behaves very similarly to Claude. Great all-rounder at lower cost. Default for Planner. |
 | **GLM 5** | Claude-like behavior. Solid for orchestration tasks. |
 
 ### GPT Family
@@ -116,8 +116,8 @@ Principle-driven, explicit reasoning, deep technical capability. Best for agents
 
 | Model | Strengths |
 |-------|-----------|
-| **GPT-5.3 Codex** | Deep coding powerhouse. Autonomous exploration. Required for Hephaestus. |
-| **GPT-5.2** | High intelligence, strategic reasoning. Default for Oracle and Momus. |
+| **GPT-5.3 Codex** | Deep coding powerhouse. Autonomous exploration. Required for Worker. |
+| **GPT-5.2** | High intelligence, strategic reasoning. Default for Architect and Reviewer. |
 | **GPT-5-Nano** | Ultra-cheap, fast. Good for simple utility tasks. |
 
 ### Other Models
@@ -126,7 +126,7 @@ Principle-driven, explicit reasoning, deep technical capability. Best for agents
 |-------|-----------|
 | **Gemini 3 Pro** | Excels at visual/frontend tasks. Different reasoning style. Default for `visual-engineering` and `artistry`. |
 | **Gemini 3 Flash** | Fast. Good for doc search and light tasks. |
-| **Grok Code Fast 1** | Blazing fast code grep. Default for Explore agent. |
+| **Grok Code Fast 1** | Blazing fast code grep. Default for Scout agent. |
 | **MiniMax M2.5** | Fast and smart. Good for utility tasks and search/retrieval. |
 
 ### About Free-Tier Fallbacks
@@ -168,7 +168,7 @@ See the [Orchestration System Guide](./orchestration.md) for how agents dispatch
     // Main orchestrator: Claude Opus or Kimi K2.5 work best
     "sisyphus": {
       "model": "kimi-for-coding/k2p5",
-      "ultrawork": { "model": "anthropic/claude-opus-4-6", "variant": "max" }
+      "upup": { "model": "anthropic/claude-opus-4-6", "variant": "max" }
     },
 
     // Research agents: cheaper models are fine
@@ -178,7 +178,7 @@ See the [Orchestration System Guide](./orchestration.md) for how agents dispatch
     // Architecture consultation: GPT or Claude Opus
     "oracle": { "model": "openai/gpt-5.2", "variant": "high" },
 
-    // Prometheus inherits sisyphus model; just add prompt guidance
+    // Advisor inherits sisyphus model; just add prompt guidance
     "prometheus": { "prompt_append": "Leverage deep & quick agents heavily, always in parallel." }
   },
 
@@ -203,15 +203,15 @@ Run `opencode models` to see available models, `opencode auth login` to authenti
 ### Safe vs Dangerous Overrides
 
 **Safe** — same personality type:
-- Sisyphus: Opus → Sonnet, Kimi K2.5, GLM 5 (all communicative models)
-- Prometheus: Opus → GPT-5.2 (auto-switches to GPT prompt)
-- Atlas: Kimi K2.5 → Sonnet, GPT-5.2 (auto-switches to GPT prompt)
+- Leader: Opus → Sonnet, Kimi K2.5, GLM 5 (all communicative models)
+- Advisor: Opus → GPT-5.2 (auto-switches to GPT prompt)
+- Planner: Kimi K2.5 → Sonnet, GPT-5.2 (auto-switches to GPT prompt)
 
 **Dangerous** — personality mismatch:
-- Sisyphus → GPT: **No GPT prompt exists. Will degrade significantly.**
-- Hephaestus → Claude: **Built for Codex's autonomous style. Claude can't replicate this.**
-- Explore → Opus: **Massive cost waste. Explore needs speed, not intelligence.**
-- Librarian → Opus: **Same. Doc search doesn't need Opus-level reasoning.**
+- Leader → GPT: **No GPT prompt exists. Will degrade significantly.**
+- Worker → Claude: **Built for Codex's autonomous style. Claude can't replicate this.**
+- Scout → Opus: **Massive cost waste. Scout needs speed, not intelligence.**
+- Researcher → Opus: **Same. Doc search doesn't need Opus-level reasoning.**
 
 ### How Model Resolution Works
 

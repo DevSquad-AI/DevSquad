@@ -15,8 +15,8 @@ Complete reference for `devsquad.jsonc` configuration. This document covers ever
   - [Model Resolution](#model-resolution)
 - [Task System](#task-system)
   - [Background Tasks](#background-tasks)
-  - [Sisyphus Agent](#sisyphus-agent)
-  - [Sisyphus Tasks](#sisyphus-tasks)
+  - [Leader Agent](#sisyphus-agent)
+  - [Leader Tasks](#sisyphus-tasks)
 - [Features](#features)
   - [Skills](#skills)
   - [Hooks](#hooks)
@@ -73,7 +73,7 @@ Here's a practical starting configuration:
     // Main orchestrator: Claude Opus or Kimi K2.5 work best
     "sisyphus": {
       "model": "kimi-for-coding/k2p5",
-      "ultrawork": { "model": "anthropic/claude-opus-4-6", "variant": "max" }
+      "upup": { "model": "anthropic/claude-opus-4-6", "variant": "max" }
     },
 
     // Research agents: cheaper models are fine
@@ -83,7 +83,7 @@ Here's a practical starting configuration:
     // Architecture consultation: GPT or Claude Opus
     "oracle": { "model": "openai/gpt-5.2", "variant": "high" },
 
-    // Prometheus inherits sisyphus model; just add prompt guidance
+    // Advisor inherits sisyphus model; just add prompt guidance
     "prometheus": { "prompt_append": "Leverage deep & quick agents heavily, always in parallel." }
   },
 
@@ -202,7 +202,7 @@ Control what tools an agent can use:
 
 ### Categories
 
-Domain-specific model delegation used by the `task()` tool. When Sisyphus delegates work, it picks a category, not a model name.
+Domain-specific model delegation used by the `task()` tool. When Leader delegates work, it picks a category, not a model name.
 
 #### Built-in Categories
 
@@ -251,16 +251,16 @@ Disable categories: `{ "disabled_categories": ["ultrabrain"] }`
 
 | Agent | Default Model | Provider Priority |
 |-------|---------------|-------------------|
-| **Sisyphus** | `claude-opus-4-6` | anthropic → github-copilot → opencode → kimi-for-coding → zai-coding-plan |
-| **Hephaestus** | `gpt-5.3-codex` | openai → github-copilot → opencode |
+| **Leader** | `claude-opus-4-6` | anthropic → github-copilot → opencode → kimi-for-coding → zai-coding-plan |
+| **Worker** | `gpt-5.3-codex` | openai → github-copilot → opencode |
 | **oracle** | `gpt-5.2` | openai → google → anthropic (via github-copilot/opencode) |
 | **librarian** | `glm-4.7` | zai-coding-plan → opencode → anthropic |
 | **explore** | `grok-code-fast-1` | github-copilot → anthropic/opencode → opencode |
 | **multimodal-looker** | `gemini-3-flash` | google → openai → zai-coding-plan → kimi-for-coding → opencode → anthropic |
-| **Prometheus** | `claude-opus-4-6` | anthropic → kimi-for-coding → opencode → openai → google |
-| **Metis** | `claude-opus-4-6` | anthropic → kimi-for-coding → opencode → openai → google |
-| **Momus** | `gpt-5.2` | openai → anthropic → google (via github-copilot/opencode) |
-| **Atlas** | `k2p5` | kimi-for-coding → opencode → anthropic → openai → google |
+| **Advisor** | `claude-opus-4-6` | anthropic → kimi-for-coding → opencode → openai → google |
+| **Advisor** | `claude-opus-4-6` | anthropic → kimi-for-coding → opencode → openai → google |
+| **Reviewer** | `gpt-5.2` | openai → anthropic → google (via github-copilot/opencode) |
+| **Planner** | `k2p5` | kimi-for-coding → opencode → anthropic → openai → google |
 
 #### Category Provider Chains
 
@@ -305,7 +305,7 @@ Control parallel agent execution and concurrency limits.
 
 Priority: `modelConcurrency` > `providerConcurrency` > `defaultConcurrency`
 
-### Sisyphus Agent
+### Leader Agent
 
 Configure the main orchestration system.
 
@@ -322,23 +322,23 @@ Configure the main orchestration system.
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `disabled` | `false` | Disable all Sisyphus orchestration, restore original build/plan |
+| `disabled` | `false` | Disable all Leader orchestration, restore original build/plan |
 | `default_builder_enabled` | `false` | Enable OpenCode-Builder agent (off by default) |
-| `planner_enabled` | `true` | Enable Prometheus (Planner) agent |
+| `planner_enabled` | `true` | Enable Advisor (Planner) agent |
 | `replace_plan` | `true` | Demote default plan agent to subagent mode |
 
-Sisyphus agents can also be customized under `agents` using their names: `Sisyphus`, `OpenCode-Builder`, `Prometheus (Planner)`, `Metis (Plan Consultant)`.
+Leader agents can also be customized under `agents` using their names: `Leader`, `OpenCode-Builder`, `Advisor (Planner)`, `Advisor (Plan Consultant)`.
 
-### Sisyphus Tasks
+### Leader Tasks
 
-Enable the Sisyphus Tasks system for cross-session task tracking.
+Enable the Leader Tasks system for cross-session task tracking.
 
 ```json
 {
   "sisyphus": {
     "tasks": {
       "enabled": false,
-      "storage_path": ".sisyphus/tasks",
+      "storage_path": ".leader/tasks",
       "claude_code_compat": false
     }
   }
@@ -347,8 +347,8 @@ Enable the Sisyphus Tasks system for cross-session task tracking.
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `enabled` | `false` | Enable Sisyphus Tasks system |
-| `storage_path` | `.sisyphus/tasks` | Storage path (relative to project root) |
+| `enabled` | `false` | Enable Leader Tasks system |
+| `storage_path` | `.leader/tasks` | Storage path (relative to project root) |
 | `claude_code_compat` | `false` | Enable Claude Code path compatibility mode |
 
 ---
@@ -409,7 +409,7 @@ Available hooks: `todo-continuation-enforcer`, `context-window-monitor`, `sessio
 
 **Notes:**
 - `directory-agents-injector` — auto-disabled on OpenCode 1.1.37+ (native AGENTS.md support)
-- `no-sisyphus-gpt` — **do not disable**. Sisyphus is not optimized for GPT; this hook switches to Hephaestus automatically.
+- `no-sisyphus-gpt` — **do not disable**. Leader is not optimized for GPT; this hook switches to Worker automatically.
 - `startup-toast` is a sub-feature of `auto-update-checker`. Disable just the toast by adding `startup-toast` to `disabled_hooks`.
 
 ### Commands
@@ -612,7 +612,7 @@ When enabled, two companion hooks are active: `hashline-read-enhancer` (annotate
 | `aggressive_truncation` | `false` | Aggressively truncate when token limit exceeded |
 | `auto_resume` | `false` | Auto-resume after thinking block recovery |
 | `disable_omo_env` | `false` | Disable auto-injected `<omo-env>` block (date/time/locale). Improves cache hit rate. |
-| `task_system` | `false` | Enable Sisyphus task system |
+| `task_system` | `false` | Enable Leader task system |
 | `dynamic_context_pruning.enabled` | `false` | Auto-prune old tool outputs to manage context window |
 | `dynamic_context_pruning.notification` | `detailed` | Pruning notifications: `off` / `minimal` / `detailed` |
 | `turn_protection.turns` | `3` | Recent turns protected from pruning (1–10) |

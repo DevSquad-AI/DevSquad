@@ -21,11 +21,11 @@ Ollama returns **NDJSON** (newline-delimited JSON) when `stream: true` is used i
 {"message":{"content":""}, "done":true}
 ```
 
-Claude Code SDK expects a single JSON object, not multiple NDJSON lines, causing the parse error.
+OpenCode/Claude Code SDK expects a single JSON object, not multiple NDJSON lines, causing the parse error.
 
 **Why this happens:**
 - **Ollama API**: Returns streaming responses as NDJSON by design
-- **Claude Code SDK**: Doesn't properly handle NDJSON responses for tool calls
+- **OpenCode/Claude Code SDK**: Doesn't properly handle NDJSON responses for tool calls
 - **devsquad**: Passes through the SDK's behavior (can't fix at this layer)
 
 ## Solutions
@@ -60,7 +60,7 @@ If you need streaming, avoid agents that use tools:
 
 ### Option 3: Wait for SDK Fix
 
-The proper fix requires Claude Code SDK to:
+The proper fix requires OpenCode/Claude Code SDK to:
 
 1. Detect NDJSON responses
 2. Parse each line separately

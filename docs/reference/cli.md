@@ -27,7 +27,7 @@ npx devsquad
 
 ## install
 
-Interactive installation tool for initial Oh-My-OpenCode setup. Provides a TUI based on `@clack/prompts`.
+Interactive installation tool for initial DevSquad setup. Provides a TUI based on `@clack/prompts`.
 
 ### Usage
 
@@ -53,7 +53,7 @@ bunx devsquad install
 
 ## doctor
 
-Diagnoses your environment to ensure Oh-My-OpenCode is functioning correctly. Performs 17+ health checks.
+Diagnoses your environment to ensure DevSquad is functioning correctly. Performs 17+ health checks.
 
 ### Usage
 
@@ -86,7 +86,7 @@ bunx devsquad doctor
 devsquad doctor
 
 ┌──────────────────────────────────────────────────┐
-│  Oh-My-OpenCode Doctor                           │
+│  DevSquad Doctor                           │
 └──────────────────────────────────────────────────┘
 
 Installation
