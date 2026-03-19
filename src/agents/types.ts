@@ -93,20 +93,20 @@ export function isGeminiModel(model: string): boolean {
   return modelName.startsWith("gemini-")
 }
 
-#NR|export type BuiltinAgentName =
-#RV|  | "leader"
-#SB|  | "worker"
-#ZR|  | "architect"
-#QH|  | "researcher"
-#VT|  | "scout"
-#MH|  | "multimodal-looker"
-#PP|  | "advisor"
-#QS|  | "reviewer"
-#ZQ|  | "planner"
-#SB|  // Legacy agent names (for backward compatibility)
-#NT|  | "sisyphus"
-#QT|  | "hephaestus"
-#VT|  | "oracle"
+export type BuiltinAgentName =
+  | "leader"
+  | "worker"
+  | "architect"
+  | "researcher"
+  | "scout"
+  | "multimodal-looker"
+  | "advisor"
+  | "reviewer"
+  | "planner"
+  // Legacy agent names (for backward compatibility)
+  | "sisyphus"
+  | "hephaestus"
+  | "oracle"
 #MH|  | "librarian"
 #PP|  | "explore"
 #ZQ|  | "metis"

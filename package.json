@@ -43,7 +43,7 @@
     "glm"
   ],
   "author": "DevSquad Team",
-  "license": "SUL-1.0",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/devsquad-ai/devsquad.git"
@@ -89,5 +89,8 @@
     "@ast-grep/cli",
     "@ast-grep/napi",
     "@code-yeongyu/comment-checker"
-  ]
+  ],
+  "directories": {
+    "doc": "docs"
+  }
 }
