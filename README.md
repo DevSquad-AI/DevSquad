@@ -29,11 +29,12 @@ https://github.com/devsquad-ai/devsquad/blob/master/docs/guide/installation.md
 ### For Humans
 
 ```bash
-# Install and run (no npm needed)
-bunx github.com/devsquad-ai/devsquad install
+git clone https://github.com/devsquad-ai/devsquad.git
+cd devsquad
+bun install
 ```
 
-That's it! After installation, just type `upup` and your AI team goes to work.
+That's it! Just type `upup` and your AI team goes to work.
 
 ## Supported Models
 
