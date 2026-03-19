@@ -29,11 +29,8 @@ https://github.com/devsquad-ai/devsquad/blob/master/docs/guide/installation.md
 ### For Humans
 
 ```bash
-# Using bun (recommended)
-bunx devsquad install
-
-# Using npx
-npx devsquad install
+# Install and run (no npm needed)
+bunx github.com/devsquad-ai/devsquad install
 ```
 
 That's it! After installation, just type `upup` and your AI team goes to work.

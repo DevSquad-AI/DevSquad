@@ -1,80 +1,37 @@
 #!/usr/bin/env node
 // bin/devsquad.js
-// Wrapper script that detects platform and spawns the correct binary
+// Wrapper script that detects platform and spawns the correct binary OR runs from source
 
 import { spawnSync } from "node:child_process";
-import { createRequire } from "node:module";
-import { getPlatformPackage, getBinaryPath } from "./platform.js";
+import { existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const rootDir = join(__dirname, "..");
 
-/**
- * Detect libc family on Linux
- * @returns {string | null} 'glibc', 'musl', or null if detection fails
- */
-function getLibcFamily() {
-  if (process.platform !== "linux") {
-    return undefined; // Not needed on non-Linux
-  }
-  
-  try {
-    const detectLibc = require("detect-libc");
-    return detectLibc.familySync();
-  } catch {
-    // detect-libc not available
-    return null;
-  }
-}
+// Check if dist exists (published package)
+const distIndex = join(rootDir, "dist", "index.js");
+const cliIndex = join(rootDir, "dist", "cli", "index.js");
 
-function main() {
-  const { platform, arch } = process;
-  const libcFamily = getLibcFamily();
-  
-  // Get platform package name
-  let pkg;
-  try {
-    pkg = getPlatformPackage({ platform, arch, libcFamily });
-  } catch (error) {
-    console.error(`\ndevsquad: ${error.message}\n`);
-    process.exit(1);
-  }
-  
-  // Resolve binary path
-  const binRelPath = getBinaryPath(pkg, platform);
-  
-  let binPath;
-  try {
-    binPath = require.resolve(binRelPath);
-  } catch {
-    console.error(`\ndevsquad: Platform binary not installed.`);
-    console.error(`\nYour platform: ${platform}-${arch}${libcFamily === "musl" ? "-musl" : ""}`);
-    console.error(`Expected package: ${pkg}`);
-    console.error(`\nTo fix, run:`);
-    console.error(`  npm install ${pkg}\n`);
-    process.exit(1);
-  }
-  
-  // Spawn the binary
-  const result = spawnSync(binPath, process.argv.slice(2), {
+if (existsSync(cliIndex)) {
+  // Use pre-built dist (published package)
+  const { spawn } = await import("node:child_process");
+  const child = spawn("bun", [cliIndex, ...process.argv.slice(2)], {
     stdio: "inherit",
+    env: process.env,
   });
-  
-  // Handle spawn errors
-  if (result.error) {
-    console.error(`\ndevsquad: Failed to execute binary.`);
-    console.error(`Error: ${result.error.message}\n`);
-    process.exit(2);
-  }
-  
-  // Handle signals
-  if (result.signal) {
-    const signalNum = result.signal === "SIGTERM" ? 15 : 
-                      result.signal === "SIGKILL" ? 9 :
-                      result.signal === "SIGINT" ? 2 : 1;
-    process.exit(128 + signalNum);
-  }
-
-  process.exit(result.status ?? 1);
+  process.exitCode = child.exitCode;
+} else if (existsSync(join(rootDir, "src", "cli", "index.ts"))) {
+  // Run directly from source (dev mode or bunx from GitHub)
+  const { spawn } = await import("node:child_process");
+  const child = spawn("bun", [join(rootDir, "src", "cli", "index.ts"), ...process.argv.slice(2)], {
+    stdio: "inherit",
+    env: { ...process.env, BUN_INSTALL_ALLOW_SCRIPTS: "true" },
+  });
+  process.exitCode = child.exitCode;
+} else {
+  console.error("Error: Could not find CLI entry point");
+  console.error("Please run 'bun run build' first, or install from npm: npm install devsquad");
+  process.exit(1);
 }
-
-main();
